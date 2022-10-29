@@ -1,15 +1,14 @@
-import mariadb
-import sys
 from datetime import date
 import mysql.connector
 import self
+import time
 
 
 #Realiza la conexion con la base de datos
 mydb = mysql.connector.connect(
     host="localhost",
     user="root",
-    passwd="",
+    passwd="1234",
     database="atencion_cliente"
 )
 mycursor = mydb.cursor()
@@ -152,7 +151,7 @@ class auditoria:
 c=cliente
 #c.in_data()
 
-c.mod_data(1, 'nombre_usuario','contrasenia', 'apellido_paterno','Aapellido_materno','genero','direccion', 'ubigeo', 'nacionalidad', '2000-15-12', 'dni', 'email',
+c.mod_data(1, 'nombre_usuario','contrasenia', 'apellido_paterno','Aapellido_materno','genero','direccion', 'ubigeo', 'nacionalidad',time.strftime("2001-11-10") , 'dni', 'email',
                  '65464', '131','servicio_cliente',2,'servicio_familiar','pasatiempo', 5, 'A','Claro','2 años')
 c.print_data(1, 1)
 
