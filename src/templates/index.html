@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Sistema CRM</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" type="image/png" href="recursos/imagenes/logo_pagina.png" >
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css')}}">
+    <link rel="icon" type="image/png" href="{{ url_for('static',filename='resources/images/logo_pagina.png')}}" >
     <link rel="stylesheet" 
     href="https://fonts.googleapis.com/css?family=Inter:Regular,Bold,Black,Light,ExtraLight">
 </head>
@@ -14,23 +14,23 @@
         <header>
             <div class="MENU">
                 <a href="index.html" class="LOGOMENU">
-                    <img src="recursos/imagenes/cubo.png" alt="Logo">
+                    <img src="/recursos/imagenes/cubo.png" alt="Logo">
                     <div>INICIO</div>
                 </a>
             </div>
             <div class="SESION">
                 <div class="INFORMACION">
-                    <img src="recursos/imagenes/usuario.png" alt="Icono de Perfil">
+                    <img src="/recursos/imagenes/usuario.png" alt="Icono de Perfil">
                     <div>Nombre</div>
                 </div>
                 <nav class="OPCIONES">
                     <a href="#">
                         <div>Salir</div>
-                        <img src="recursos/imagenes/boton-de-encendido-apagado.png" alt="icono de salir">
+                        <img src="/recursos/imagenes/boton-de-encendido-apagado.png" alt="icono de salir">
                     </a>
                     <a href="#">
                         <div>Configuración</div>
-                        <img src="recursos/imagenes/configuraciones.png" alt="icono de configuracion">
+                        <img src="/recursos/imagenes/configuraciones.png" alt="icono de configuracion">
                     </a>
                 </nav>
             </div>
@@ -49,7 +49,7 @@
                         <li><a href="#">Generación de reportes</a></li>
                         <li><a href="#">Consulta de operaciones</a></li>
                     </ul>
-                    <img src="recursos/imagenes/personas.png" alt="Imagen de fondo de modulo">
+                    <img src="/recursos/imagenes/personas.png" alt="Imagen de fondo de modulo">
                 </div>
                 <div id="CLIENTES" class="MODULO">
                     <h4>CLIENTES</h4>
