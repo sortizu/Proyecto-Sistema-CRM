@@ -1,48 +1,57 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Sistema CRM</title>
-    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css')}}">
-    <link rel="icon" type="image/png" href="{{ url_for('static',filename='resources/images/logo_pagina.png')}}" >
-    <link rel="stylesheet" 
-    href="https://fonts.googleapis.com/css?family=Inter:Regular,Bold,Black,Light,ExtraLight">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:Regular,Bold,Black,Light,ExtraLight">
     <script src="js/clientes.js" defer></script>
     <script src="js/menulateral.js" defer></script>
     <script src="js/botonpanel.js"></script>
     <style>
-        .PANEL{
+        .PANEL {
             display: none;
         }
-        #PANELREGISTRO1{
+
+        #PANELREGISTRO1 {
             min-width: 800px;
             max-width: 800px;
         }
-        #PANELREGISTRO2{
+
+        #PANELREGISTRO2 {
             min-width: 800px;
             max-width: 800px;
         }
-        #DATOSDECLIENTE1 #CABECERAPANEL, #DATOSDECLIENTE2 #CABECERAPANEL{
+
+        #DATOSDECLIENTE1 #CABECERAPANEL,
+        #DATOSDECLIENTE2 #CABECERAPANEL {
             position: relative;
         }
-        #DATOSDECLIENTE1 #CABECERAPANEL div:last-child, #DATOSDECLIENTE2 #CABECERAPANEL div:last-child{
+
+        #DATOSDECLIENTE1 #CABECERAPANEL div:last-child,
+        #DATOSDECLIENTE2 #CABECERAPANEL div:last-child {
             position: absolute;
             right: 0px;
         }
-        #DATOSDECLIENTE1{
+
+        #DATOSDECLIENTE1 {
             min-width: 800px;
             max-width: 800px;
         }
-        #DATOSDECLIENTE2{
+
+        #DATOSDECLIENTE2 {
             min-width: 800px;
             max-width: 800px;
         }
-        .CAMPO{
+
+        .CAMPO {
             margin-right: 30px;
         }
     </style>
 </head>
+
 <body>
     <main>
         <header>
@@ -214,7 +223,7 @@
                 </div>
                 <div class="PANEL" id="PANELBUSQUEDA">
                     <div id="CABECERAPANEL">
-                        <div>INGRESE EL ID O DNI DEL  CLIENTE A BUSCAR</div>
+                        <div>INGRESE EL ID O DNI DEL CLIENTE A BUSCAR</div>
                     </div>
                     <div class="SEPARADORPANEL"></div>
                     <div class="CONTENIDOPANEL">
@@ -367,4 +376,5 @@
         </footer>
     </main>
 </body>
+
 </html>
