@@ -138,11 +138,31 @@ width: 100%;
 }
 .botones{
     justify-content: space-around;
-width: 60%;
+    width: 60%;
+}
+.accordion-body{
+    display: flex;
 }
 .accordion-body button{
     border: none;
     background-color: transparent;
+    font-size: small;
+}
+.foto{
+    width: 40%;
+}
+.descs{
+    width: 100%;
+}
+.descs label{
+    color: #4C1A91;
+    background-color:transparent ;
+    font-weight: bold;
+}
+.descs p{
+    background-color:#E6E6E6;
+    border-radius: 30px;
+    padding: 2%;
 }
 .carrito{
     margin-top: 10px;
