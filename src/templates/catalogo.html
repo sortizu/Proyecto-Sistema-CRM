@@ -31,6 +31,9 @@
             </div>
         </div>
     </header>
+
+
+    
     <div class="contenido">
         <div class="lateral">
             <div class="cliente"><img src="../static/resources/images/usuario.png" title="Cliente">ID-CLIENTE</div>
@@ -47,9 +50,12 @@
                         <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body">
-                                <button>Filtro1</button>
-                                <button>Filtro1</button>
-                                <button>Filtro1</button>
+                                <form action = "/catalogo" method = "POST">
+                                    <input type = "text" name = "min" pattern="[0-9]{1,5}" placeholder = "min">
+                                    <input type = "text" name = "max" pattern="[0-9]{1,5}" placeholder = "max">
+                                    <button type = "submit">Confirmar precio</button>
+                                </form>
+                                
                             </div>
                         </div>
                     </div>
@@ -63,9 +69,10 @@
                         <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body">
-                                <button>Filtro1</button>
-                                <button>Filtro1</button>
-                                <button>Filtro1</button>
+                                {%for oferta in ofertas %}
+                                <button >{{oferta.0}}</button>
+                                {% endfor %}
+                                
                             </div>
                         </div>
                     </div>
@@ -79,9 +86,9 @@
                         <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body">
-                                <button>Filtro1</button>
-                                <button>Filtro1</button>
-                                <button>Filtro1</button>
+                                {%for plan in planes %}
+                                <button >{{plan.0}}</button>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
@@ -95,9 +102,9 @@
                         <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body">
-                                <button>Filtro1</button>
-                                <button>Filtro1</button>
-                                <button>Filtro1</button>
+                                {%for marca in marcas %}
+                                <button >{{marca.0}}</button>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
@@ -111,9 +118,9 @@
                         <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive"
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body">
-                                <button>Filtro1</button>
-                                <button>Filtro1</button>
-                                <button>Filtro1</button>
+                                {%for accesorio in accesorios %}
+                                <button >{{accesorio.0}}</button>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
@@ -161,133 +168,25 @@
                 <button><img title="izq" src="../static/resources/images/icons8-izquierda-24 (1).png"></button>
             </div>
             <div class="catalogo">
+            {%for producto in productos %}    
                 <div class="card">
-                    <img src="../static/resources/images/iphone.jpg" class="card-img-top" alt="...">
+                    <img src={{producto.7}} class="card-img-top" alt="..." height="180">
                     <div class="card-body">
-                        <label>id_producto</label>
-                        <h5 class="card-title">Nombre_producto</h5>
-                        <label>Stock</label>
+                        
+                        <label>id: {{producto.0}}</label>
+                        <h5 class="card-title">{{producto.3}}</h5>
+                        <label>Stock: {{producto.5}}</label>
                         <div class="card-desc">
-                            <p class="card-text">Descripción: descripción del producto, como marca, hardawre, plan o
-                                accsorio que incluye</p>
-                            <label>Precio</label>
+                            <label>S/{{producto.4}}</label>
                         </div>
-
+                        
                         <div class="card-button">
                             <a href="#" class="btn btn-secondary">Detalles</a>
                             <a href="#" class="btn btn-primary">Agregar</a>
                         </div>
                     </div>
                 </div>
-                <div class="card">
-                    <img src="../static/resources/images/iphone.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <label>id_producto</label>
-                        <h5 class="card-title">Nombre_producto</h5>
-                        <label>Stock</label>
-                        <div class="card-desc">
-                            <p class="card-text">Descripción: descripción del producto, como marca, hardawre, plan o
-                                accsorio que incluye</p>
-                            <label>Precio</label>
-                        </div>
-
-                        <div class="card-button">
-                            <a href="#" class="btn btn-secondary">Detalles</a>
-                            <a href="#" class="btn btn-primary">Agregar</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="../static/resources/images/iphone.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <label>id_producto</label>
-                        <h5 class="card-title">Nombre_producto</h5>
-                        <label>Stock</label>
-                        <div class="card-desc">
-                            <p class="card-text">Descripción: descripción del producto, como marca, hardawre, plan o
-                                accsorio que incluye</p>
-                            <label>Precio</label>
-                        </div>
-
-                        <div class="card-button">
-                            <a href="#" class="btn btn-secondary">Detalles</a>
-                            <a href="#" class="btn btn-primary">Agregar</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="../static/resources/images/iphone.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <label>id_producto</label>
-                        <h5 class="card-title">Nombre_producto</h5>
-                        <label>Stock</label>
-                        <div class="card-desc">
-                            <p class="card-text">Descripción: descripción del producto, como marca, hardawre, plan o
-                                accsorio que incluye</p>
-                            <label>Precio</label>
-                        </div>
-
-                        <div class="card-button">
-                            <a href="#" class="btn btn-secondary">Detalles</a>
-                            <a href="#" class="btn btn-primary">Agregar</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="../static/resources/images/iphone.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <label>id_producto</label>
-                        <h5 class="card-title">Nombre_producto</h5>
-                        <label>Stock</label>
-                        <div class="card-desc">
-                            <p class="card-text">Descripción: descripción del producto, como marca, hardawre, plan o
-                                accsorio que incluye</p>
-                            <label>Precio</label>
-                        </div>
-
-                        <div class="card-button">
-                            <a href="#" class="btn btn-secondary">Detalles</a>
-                            <a href="#" class="btn btn-primary">Agregar</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="../static/resources/images/iphone.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <label>id_producto</label>
-                        <h5 class="card-title">Nombre_producto</h5>
-                        <label>Stock</label>
-                        <div class="card-desc">
-                            <p class="card-text">Descripción: descripción del producto, como marca, hardawre, plan o
-                                accsorio que incluye</p>
-                            <label>Precio</label>
-                        </div>
-
-                        <div class="card-button">
-                            <a href="#" class="btn btn-secondary">Detalles</a>
-                            <a href="#" class="btn btn-primary">Agregar</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="../static/resources/images/iphone.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <label>id_producto</label>
-                        <h5 class="card-title">Nombre_producto</h5>
-                        <label>Stock</label>
-                        <div class="card-desc">
-                            <p class="card-text">Descripción: descripción del producto, como marca, hardawre, plan o
-                                accsorio que incluye</p>
-                            <label>Precio</label>
-                        </div>
-
-                        <div class="card-button">
-                            <a href="#" class="btn btn-secondary">Detalles</a>
-                            <a href="#" class="btn btn-primary">Agregar</a>
-                        </div>
-                    </div>
-                </div>
-
+            {% endfor %}
             </div>
         </div>
 
