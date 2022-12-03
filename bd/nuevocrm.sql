@@ -81,3 +81,13 @@ from v3crm
 where N is not null
 group by nombre_pr;
 
+create table marca (
+	id_marca int unsigned auto_increment primary key,
+    nombre varchar(30) not null
+);
+
+insert into marca(nombre)
+select substring_index(nombre," ",1) marca
+from crm_ventas.equipo
+group by marca
+order by marca;

@@ -34,7 +34,7 @@ def catalogo(i):
     data_accesorios = cur.fetchall()
     i = int(i)
     pos = 8*(i-1)+1
-    cur.execute("select * from producto where id_producto >= '{0}' limit 8".format(pos))
+    cur.execute("select p.*,e.link from crm_ventas.producto p, crm_ventas.equipo e where fk_producto_equipo = id_equipo and id_producto >= '{0}' limit 8".format(pos))
     data_productos = cur.fetchall()
     print (data_productos)
     return render_template('catalogo.html', ofertas = data_ofertas, planes = data_planes, marcas = data_marcas, accesorios = data_accesorios, productos = data_productos)
