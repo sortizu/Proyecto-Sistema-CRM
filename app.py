@@ -24,33 +24,47 @@ def index():
 @app.route('/catalogo/<i>')
 def catalogo(i):
     cur = mysql.connection.cursor()
+
     cur.execute('select nombre from oferta')
     data_ofertas = cur.fetchall()
+
     cur.execute('select nombre from plan')
     data_planes = cur.fetchall()
+
     cur.execute('select nombre from marca')
     data_marcas = cur.fetchall()
+
     cur.execute('select nombre from accesorio')
     data_accesorios = cur.fetchall()
+
     i = int(i)
     pos = 8*(i-1)+1
-    cur.execute("select p.*,e.link from crm_ventas.producto p, crm_ventas.equipo e where fk_producto_equipo = id_equipo and id_producto >= '{0}' limit 8".format(pos))
+    cur.execute(f"select p.*,e.link from crm_ventas.producto p, crm_ventas.equipo e where fk_producto_equipo = id_equipo and id_producto >= '{pos}' limit 8;")
     data_productos = cur.fetchall()
-    print (data_productos)
+
     return render_template('catalogo.html', ofertas = data_ofertas, planes = data_planes, marcas = data_marcas, accesorios = data_accesorios, productos = data_productos)
+
 
 @app.route('/detalles/<i>')#creo que está mal, que debe ser una url previa
 def ver_detalles(i):
     cur = mysql.connection.cursor()
-    cur.execute("select * from produto where id_producto = '{0}'".format(i))
-    data_producto = cur.fetchall()
-    cur.execute("select o.nombre, o.descripcion from oferta o, producto p where p.id_producto = {0} and p.fk_producto_oferta = o.id_oferta".format(i))
-    data_plan = cur.fetchall()
-    cur.execute("select o.nombre, o.descripcion from oferta o, producto p where p.id_producto = {0} and p.fk_producto_oferta = o.id_oferta".format(i))
-    data_accesorio = cur.fetchall()
-    cur.execute("select o.nombre, o.descripcion from oferta o, producto p where p.id_producto = {0} and p.fk_producto_oferta = o.id_oferta".format(i))
-    data_oferta = cur.fetchall()
-    return render_template('detalles.html', producto = data_producto, plan = data_plan, accesorio = data_accesorio, oferta = data_oferta)
+
+    cur.execute(f"select pr.precio, pr.stock from producto pr where pr.id_producto = {i};")
+    data_producto = cur.fetchone()
+
+    cur.execute(f"select e.nombre, e.descripcion, e.garantia, e.link from producto pr, equipo e where pr.id_producto = '{i}' and pr.fk_producto_equipo = e.id_equipo;")
+    data_equipo = cur.fetchone()
+
+    cur.execute(f"select p.nombre, p.precio, p.descripcion from producto pr, equipo e, plan p where pr.id_producto = '{i}' and pr.fk_producto_equipo = e.id_equipo and e.fk_equipo_plan = p.id_plan;")
+    data_plan = cur.fetchone()
+
+    cur.execute(f"select a.nombre, a.descripcion from producto pr, equipo e, accesorio a where pr.id_producto = '{i}' and pr.fk_producto_equipo = e.id_equipo and e.fk_equipo_accesorio = a.id_accesorio;")
+    data_accesorio = cur.fetchone()
+
+    cur.execute(f"select o.nombre, concat(o.descuento*100,'%'), o.descripcion from oferta o, producto p where p.id_producto = {i} and p.fk_producto_oferta = o.id_oferta;")
+    data_oferta = cur.fetchone()
+    
+    return render_template('detalles.html', producto = data_producto, equipo = data_equipo, plan = data_plan, accesorio = data_accesorio, oferta = data_oferta)
 
 """
 @app.route('/catalogo/<int: id>')   #BUSQUEDA POR ID

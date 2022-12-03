@@ -17,7 +17,7 @@ group by nombre_acc;
 create table plan (
 	id_plan int unsigned primary key not null,
     nombre varchar(100) not null,
-    descuento decimal(5,2) not null,
+    precio decimal(5,2) not null,
     descripcion varchar(200) not null
 );
 
@@ -44,7 +44,7 @@ create table equipo (
 );
 
 insert into equipo(id_equipo,nombre,precio,stock,fk_equipo_plan,fk_equipo_accesorio,descripcion,garantia,link)
-select id_eq,nombre_eq,replace(precio_eq,',','.'),stock_eq,id_pl,id_acc,descripcion_eq,grarantia,link_eq
+select id_eq,nombre_eq,replace(precio_eq,',','.'),stock_eq,id_pl,id_acc,descripcion_eq,grarantia,concat("../static/resources/images/producto/",id_eq,".png")
 from v3crm
 group by nombre_eq;
 
