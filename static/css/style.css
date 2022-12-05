@@ -286,3 +286,77 @@ button:hover{
     background-color: #4C1A91;
     border-radius: 20px;
 }
+.contenidoCar{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+.det-cab{
+    text-align: left;
+    margin-top: 5%;
+}
+.tabla{
+    width: 100%;
+}
+.carritotabla{
+    table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+  border-top: 2px solid #D1D1D1;
+  border-bottom: 2px solid #D1D1D1;
+  margin-top: 5%;
+}
+th{
+    text-align: center;
+}
+.botonesC{
+    width: 100%;
+    text-align: right;
+    justify-content: right;
+    margin-top: 5%;
+}
+.imp-tot{
+    background-color: #D1D1D1;
+    border-radius: 30px;
+    color: #3E1C6C;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+.importe{
+    display: flex;
+    justify-content: right;
+    padding-top: 2%;
+    border-top: 1px solid #D1D1D1;
+}
+/* estilos del popup */
+.popup{
+  display: none; 
+  position: fixed;
+  width:10%;
+  bottom: 50%;
+  right: 45%;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+.cuadro{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.cuadro label{
+ width: 100%;
+ background-color: #3E1C6C;
+ color: #fff;
+ text-align: center;
+}
+.cuadro button{
+background-color: #fff;
+color:#888888 ;
+width: 100%;
+border:1px #f1f1f1;
+}

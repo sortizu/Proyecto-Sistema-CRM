@@ -9,4 +9,5 @@ def ver_detalle(cupon: Cupon) -> None:
 if __name__ == "__main__":
     cupon01 = CuponCli()
     cupon01 = Cupon10(cupon01)
+    cupon01 = Cupon05(cupon01)
     ver_detalle(cupon01)

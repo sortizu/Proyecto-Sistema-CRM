@@ -23,6 +23,7 @@ class ProductosIterator(Iterator):
         try:
             value = self._collection[self._position]
             self._position += -1 if self._reverse else 1
+            print(1)
         except IndexError:
             raise StopIteration()
 
