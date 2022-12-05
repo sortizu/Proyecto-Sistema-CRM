@@ -45,6 +45,30 @@ def catalogo(i):
     return render_template('catalogo.html', ofertas = data_ofertas, planes = data_planes, marcas = data_marcas, accesorios = data_accesorios, productos = data_productos)
 
 
+@app.route('/catalogo-precio/<i>')
+def catalogo_precio(i):
+    cur = mysql.connection.cursor()
+
+    cur.execute('select nombre from oferta')
+    data_ofertas = cur.fetchall()
+
+    cur.execute('select nombre from plan')
+    data_planes = cur.fetchall()
+
+    cur.execute('select nombre from marca')
+    data_marcas = cur.fetchall()
+
+    cur.execute('select nombre from accesorio')
+    data_accesorios = cur.fetchall()
+
+    i = int(i)
+    pos = 8*(i-1)+1
+    cur.execute(f"select p.*,e.link from crm_ventas.producto p, crm_ventas.equipo e where fk_producto_equipo = id_equipo and id_producto >= '{pos}' order by p.precio limit 8;")
+    data_productos_precio = cur.fetchall()
+
+    return render_template('catalogo.html', ofertas = data_ofertas, planes = data_planes, marcas = data_marcas, accesorios = data_accesorios, productos_precio = data_productos_precio)
+
+
 @app.route('/detalles/<i>')#creo que está mal, que debe ser una url previa
 def ver_detalles(i):
     cur = mysql.connection.cursor()
