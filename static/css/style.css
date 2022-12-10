@@ -175,6 +175,8 @@ width: 100%;
     align-items: center;
     border: none;
     border-radius: 15px;
+    padding-top: 5%;
+    padding-bottom: 5%;
 }
 .buscar, .ordenar{
     width: 40%;
@@ -307,11 +309,14 @@ button:hover{
   width: 100%;
   border-collapse: collapse;
   border-top: 2px solid #D1D1D1;
-  border-bottom: 2px solid #D1D1D1;
   margin-top: 5%;
 }
 th{
     text-align: center;
+}
+tr{
+    border-collapse: collapse;
+    border-bottom: 2px solid #D1D1D1;
 }
 .botonesC{
     width: 100%;
@@ -325,10 +330,12 @@ th{
     color: #3E1C6C;
     margin-left: 5%;
     margin-right: 5%;
+    padding: 1%;
 }
 .importe{
     display: flex;
     justify-content: right;
+    align-items: center;
     padding-top: 2%;
     border-top: 1px solid #D1D1D1;
 }
@@ -359,4 +366,27 @@ background-color: #fff;
 color:#888888 ;
 width: 100%;
 border:1px #f1f1f1;
+}
+.pdf{
+    display: flex;
+    justify-content: center;
+    margin-top: 2%;
+    width: 100%;
+    height: 600px;
+}
+.btnspdf{
+    display: flex;
+    justify-content: right;
+    gap:10px;
+    margin-bottom: 5%;
+    margin-top: 2%;
+    width: 90%;
+}
+.btnspdf button{
+    /* margin-right: 2%; */
+    padding: 1%;
+    background-color: #4C1A91;
+}
+.btnspdf button:hover{
+    background-color: #888888;
 }
