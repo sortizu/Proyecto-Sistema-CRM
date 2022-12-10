@@ -14,7 +14,7 @@ class conexion():
     mydb = mysql.connector.connect(
         host="localhost",
         user="root",
-        passwd="",
-        database="atencion_cliente"
+        passwd="1234",
+        database="DB_CRM_services_v3"
         )
     mycursor = mydb.cursor()

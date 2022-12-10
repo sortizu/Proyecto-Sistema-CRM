@@ -8,18 +8,37 @@
     <link rel="icon" type="image/png" href="{{ url_for('static',filename='resources/images/logo_pagina.png')}}" >
     <link rel="stylesheet" 
     href="https://fonts.googleapis.com/css?family=Inter:Regular,Bold,Black,Light,ExtraLight">
-    <script src="js/clientes.js" defer></script>
-    <script src="js/menulateral.js" defer></script>
-    <script src="js/botonpanel.js"></script>
+    <script src="/static/js/clientes.js" defer></script>
+    <script src="/static/js/menulateral.js"></script>
+    <script src="/static/js/botonpanel.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
         .PANEL{
             display: none;
         }
         #PANELREGISTRO1{
+            {% if funcion == 'registro' %}
+            display: block;
+            {% else %}
+            display: none;
+            {% endif %}
             min-width: 800px;
             max-width: 800px;
         }
+        #btn-1{
+            {% if funcion == 'registro' %}
+            color: white;
+            background-color: purple;
+            {% else %}
+            color: 888888;
+            background-color: white;
+            {% endif %}
+        }
         #PANELREGISTRO2{
+            min-width: 800px;
+            max-width: 800px;
+        }
+        #PANELREGISTRO3{
             min-width: 800px;
             max-width: 800px;
         }
@@ -30,6 +49,23 @@
             position: absolute;
             right: 0px;
         }
+        #PANELBUSQUEDA{
+            {% if funcion == 'busqueda' %}
+            display: block;
+            {% else %}
+            display: none;
+            {% endif %}
+            min-width: 450px;
+        }
+        #btn-2{
+            {% if funcion == 'busqueda' %}
+            color: white;
+            background-color: purple;
+            {% else %}
+            color: 888888;
+            background-color: white;
+            {% endif %}
+        }
         #DATOSDECLIENTE1{
             min-width: 800px;
             max-width: 800px;
@@ -37,6 +73,64 @@
         #DATOSDECLIENTE2{
             min-width: 800px;
             max-width: 800px;
+        }
+        #DATOSDECLIENTE3{
+            min-width: 800px;
+            max-width: 800px;
+        }
+        #PANELREPORTES{
+            {% if funcion == 'reportes' %}
+            display: block;
+            {% else %}
+            display: none;
+            {% endif %}
+            min-width: 800px;
+            max-width: 800px;
+        }
+        #btn-3{
+            {% if funcion == 'reportes' %}
+            color: white;
+            background-color: purple;
+            {% else %}
+            color: 888888;
+            background-color: white;
+            {% endif %}
+        }
+        #PANELAUDITAR{
+            {% if funcion == 'auditar' %}
+            display: block;
+            {% else %}
+            display: none;
+            {% endif %}
+            min-width: 800px;
+            max-width: 800px;
+        }
+        #btn-4{
+            {% if funcion == 'auditar' %}
+            color: white;
+            background-color: purple;
+            {% else %}
+            color: 888888;
+            background-color: white;
+            {% endif %}
+        }
+        #PANELCONSULTAR{
+            {% if funcion == 'consulta' %}
+            display: block;
+            {% else %}
+            display: none;
+            {% endif %}
+            min-width: 800px;
+            max-width: 800px;
+        }
+        #btn-5{
+            {% if funcion == 'consulta' %}
+            color: white;
+            background-color: purple;
+            {% else %}
+            color: 888888;
+            background-color: white;
+            {% endif %}
         }
         .CAMPO{
             margin-right: 30px;
@@ -47,55 +141,47 @@
     <main>
         <header>
             <div class="MENU">
-                <a href="index.html" class="LOGOMENU">
-                    <img src="recursos/imagenes/cubo.png" alt="Logo">
+                <a href="/" class="LOGOMENU">
+                    <img src="/static/resources/images/cubo.png" alt="Logo">
                 </a>
                 <div class="SEPARADORMENU"></div>
-                <a href="clientes.html" class="LOGOMENU">
-                    <img src="recursos/imagenes/personas.png" alt="Logo">
+                <a href="/clientes" class="LOGOMENU">
+                    <img src="/static/resources/images/personas.png" alt="Logo">
                     <div>CLIENTES</div>
                 </a>
                 <div class="SEPARADORMENU"></div>
-                <a href="clientes.html" class="LOGOMENU">
-                    <img src="recursos/imagenes/personas.png" alt="Logo">
+                <a href="/clientes" class="LOGOMENU">
+                    <img src="/static/resources/images/personas.png" alt="Logo">
                 </a>
                 <div class="SEPARADORMENU"></div>
-                <a href="clientes.html" class="LOGOMENU">
-                    <img src="recursos/imagenes/personas.png" alt="Logo">
-                </a>
-                <div class="SEPARADORMENU"></div>
-                <a href="clientes.html" class="LOGOMENU">
-                    <img src="recursos/imagenes/personas.png" alt="Logo">
-                </a>
-                <div class="SEPARADORMENU"></div>
-                <a href="clientes.html" class="LOGOMENU">
-                    <img src="recursos/imagenes/personas.png" alt="Logo">
+                <a href="/clientes" class="LOGOMENU">
+                    <img src="/static/resources/images/personas.png" alt="Logo">
                 </a>
             </div>
             <div class="SESION">
                 <div class="INFORMACION">
-                    <img src="recursos/imagenes/usuario.png" alt="Icono de Perfil">
+                    <img src="/static/resources/images/usuario.png" alt="Icono de Perfil">
                     <div>Nombre</div>
                 </div>
                 <nav class="OPCIONES">
                     <a href="#">
                         <div>Salir</div>
-                        <img src="recursos/imagenes/boton-de-encendido-apagado.png" alt="icono de salir">
+                        <img src="/static/resources/images/boton-de-encendido-apagado.png" alt="icono de salir">
                     </a>
                     <a href="#">
                         <div>Configuración</div>
-                        <img src="recursos/imagenes/configuraciones.png" alt="icono de configuracion">
+                        <img src="/static/resources/images/configuraciones.png" alt="icono de configuracion">
                     </a>
                 </nav>
             </div>
         </header>
         <section id="CONTENIDO">
             <div id="MENULATERAL">
-                <div class="BTNMENULATERAL" id="btn-1" panel="PANELREGISTRO1">REGISTRAR CLIENTE</div>
-                <div class="BTNMENULATERAL" id="btn-2" panel="PANELBUSQUEDA">BUSCAR CLIENTE</div>
-                <div class="BTNMENULATERAL" id="btn-3">REPORTES</div>
-                <div class="BTNMENULATERAL" id="btn-4">AUDITAR CLIENTE</div>
-                <div class="BTNMENULATERAL" id="btn-5">CONSULTAR OPERACIONES</div>
+                <a href="/clientes/registro" class="BTNMENULATERAL" id="btn-1">REGISTRAR CLIENTE</a>
+                <a href="/clientes/busqueda" class="BTNMENULATERAL" id="btn-2">BUSCAR CLIENTE</a>
+                <a href="/clientes/reportes" class="BTNMENULATERAL" id="btn-3">REPORTES</a>
+                <a href="/clientes/auditar" class="BTNMENULATERAL" id="btn-4">AUDITAR CLIENTE</a>
+                <a href="/clientes/consulta" class="BTNMENULATERAL" id="btn-5">CONSULTAR OPERACIONES</a>
             </div>
             <div id="CONTENEDORPANEL">
                 <div class="PANEL" id="PANELREGISTRO1">
@@ -105,69 +191,50 @@
                     <div class="SEPARADORPANEL"></div>
                     <div class="CONTENIDOPANEL">
                         <div class="CAMPO">
-                            <div>Id</div>
-                            <input type="text" id="ID" disabled>
+                            <div>DNI</div>
+                            <input type="text" id="R-DNI">
                         </div>
                         <span></span>
                         <div class="CAMPO">
                             <div>Nombres</div>
-                            <input type="text" id="NOMBRE">
+                            <input type="text" id="R-NOMBRE">
                         </div>
                         <div class="CAMPO">
                             <div>Ap. Paterno</div>
-                            <input type="text" id="APP">
+                            <input type="text" id="R-APP">
                         </div>
                         <div class="CAMPO">
                             <div>Ap. Materno</div>
-                            <input type="text" id="APM">
+                            <input type="text" id="R-APM">
                         </div>
                         <div class="CAMPO">
                             <div>Género</div>
-                            <input type="text" id="GENERO">
+                            <input type="text" id="R-GENERO">
                         </div>
                         <div class="CAMPO">
                             <div>Fec. Nacimiento</div>
-                            <input type="date" id="FN">
-                        </div>
-                        <div class="CAMPO">
-                            <div>DNI</div>
-                            <input type="text" id="DNI">
+                            <input type="date" id="R-FN">
                         </div>
                         <div class="CAMPO">
                             <div>Nacionalidad</div>
-                            <input type="text" id="NAC">
+                            <input type="text" id="R-NAC">
                         </div>
                         <div class="CAMPO">
                             <div>Email</div>
-                            <input type="email" id="EMAIL">
+                            <input type="email" id="R-EMAIL">
                         </div>
                         <div class="CAMPO">
                             <div>Teléfono</div>
-                            <input type="tel" id="TEL">
+                            <input type="tel" id="R-TEL">
                         </div>
                         <div class="CAMPO">
-                            <div>Departamento</div>
-                            <input type="" id="DPTO">
+                            <div>Dirección 1</div>
+                            <input style="width: 500px;" type="" id="R-DIR1">
                         </div>
+                        <span></span>
                         <div class="CAMPO">
-                            <div>Provincia</div>
-                            <input type="text" id="PROV">
-                        </div>
-                        <div class="CAMPO">
-                            <div>Ciudad</div>
-                            <input type="text" id="CIUDAD">
-                        </div>
-                        <div class="CAMPO">
-                            <div>Distritos</div>
-                            <input type="text" id="DISTRITO">
-                        </div>
-                        <div class="CAMPO">
-                            <div>Cod. Postal</div>
-                            <input type="text" id="CODP">
-                        </div>
-                        <div class="CAMPO">
-                            <div>Dirección</div>
-                            <input type="text" id="DIR">
+                            <div>Dirección 2</div>
+                            <input style="width: 500px;" type="text" id="R-DIR2">
                         </div>
                     </div>
                     <div class="SEPARADORPANEL"></div>
@@ -184,24 +251,24 @@
                     <div class="CONTENIDOPANEL">
                         <div class="CAMPO">
                             <div>RUC</div>
-                            <input type="text" id="RUC">
+                            <input type="text" id="R-RUC">
                         </div>
                         <span></span>
                         <div class="CAMPO">
                             <div>¿Cuántos familiares tiene el cliente?</div>
-                            <input type="text" id="NFAM">
+                            <input type="text" id="R-NFAM">
                         </div>
                         <div class="CAMPO">
                             <div>¿Cuál es el pasatiempo favorito del cliente?</div>
-                            <input type="text" id="PASAT">
+                            <input type="text" id="R-PASAT">
                         </div>
                         <div class="CAMPO">
                             <div>Número de dispositivos que tiene el cliente en casa</div>
-                            <input type="text" id="NDISP">
+                            <input type="text" id="R-NDISP">
                         </div>
                         <div class="CAMPO">
                             <div>Nivel socioeconómico del cliente</div>
-                            <input type="text" id="NSOC">
+                            <input type="text" id="R-NSOC">
                         </div>
                         <span></span>
                     </div>
@@ -209,26 +276,44 @@
                     <div id="PIEPANEL">
                         <button class="BTNPANEL" onclick="cargarPanel('PANELREGISTRO1')">← Atras</button>
                         <div>DATOS PERSONALES 2</div>
+                        <button class="BTNPANEL" onclick="cargarPanel('PANELREGISTRO3')">Siguiente →</button>
+                    </div>
+                </div>
+                <div class="PANEL" id="PANELREGISTRO3">
+                    <div id="CABECERAPANEL">
+                        <div>REGISTRO DE CLIENTE</div>
+                    </div>
+                    <div class="SEPARADORPANEL"></div>
+                    <div class="CONTENIDOPANEL">
+                        <div style="display:flex;align-items: center;justify-content: center;" class="CAMPO">
+                            <div>Nombre de usuario</div>
+                            <input type="text" id="R-NOMBREUSUARIO">
+                        </div>
+                        <span></span>
+                        <div style="display:flex;align-items: center;justify-content: center;" class="CAMPO">
+                            <div>Contraseña</div>
+                            <input type="password" id="R-CONTRASEÑA">
+                        </div>
+                    </div>
+                    <div class="SEPARADORPANEL"></div>
+                    <div id="PIEPANEL">
+                        <button class="BTNPANEL" onclick="cargarPanel('PANELREGISTRO2')">← Atras</button>
+                        <div>CREDENCIALES DE CLIENTE</div>
                         <button class="BTNPANEL" onclick="registrarCliente()">Finalizar</button>
                     </div>
                 </div>
                 <div class="PANEL" id="PANELBUSQUEDA">
-                    <div id="CABECERAPANEL">
-                        <div>INGRESE EL ID O DNI DEL  CLIENTE A BUSCAR</div>
+                    <div style="justify-content: center;" id="CABECERAPANEL">
+                        <div >INGRESE EL DNI DEL CLIENTE A BUSCAR</div>
                     </div>
                     <div class="SEPARADORPANEL"></div>
                     <div class="CONTENIDOPANEL">
-                        <div class="CAMPO">
-                            <div>ID</div>
-                            <input type="text" id="IDBUS">
-                        </div>
-                        <button class="BTNPANEL" onclick="buscarCliente()">Buscar</button>
                         <span></span>
-                        <div class="CAMPO">
+                        <div style="display:flex;align-items: center;justify-content: center;padding: 5px 0px 15px 0px;" class="CAMPO">
                             <div>DNI</div>
-                            <input type="text" id="DNIBUS">
+                            <input style = "width: 125px;" type="text" id="DNIBUS">
                         </div>
-                        <button class="BTNPANEL" onclick="buscarCliente()">Buscar</button>
+                        <button style="display: block;margin:auto;" class="BTNPANEL" onclick="buscarCliente()">Buscar</button>
                     </div>
                     <div class="SEPARADORPANEL"></div>
                     <div id="PIEPANEL">
@@ -238,6 +323,7 @@
                     <div id="CABECERAPANEL">
                         <div>DATOS DE CLIENTE ENCONTRADO</div>
                         <div>
+                            <button class="BTNPANEL">Venta</button>
                             <button class="BTNPANEL">Modificar</button>
                             <button class="BTNPANEL" onclick="eliminarCliente()">Eliminar</button>
                         </div>
@@ -245,8 +331,8 @@
                     <div class="SEPARADORPANEL"></div>
                     <div class="CONTENIDOPANEL">
                         <div class="CAMPO">
-                            <div>Id</div>
-                            <input type="text" id="ID" disabled>
+                            <div>DNI</div>
+                            <input type="text" id="DNI">
                         </div>
                         <div class="CAMPO">
                             <div>Estado</div>
@@ -274,10 +360,6 @@
                             <input type="date" id="FN">
                         </div>
                         <div class="CAMPO">
-                            <div>DNI</div>
-                            <input type="text" id="DNI">
-                        </div>
-                        <div class="CAMPO">
                             <div>Nacionalidad</div>
                             <input type="text" id="NAC">
                         </div>
@@ -290,28 +372,13 @@
                             <input type="tel" id="TEL">
                         </div>
                         <div class="CAMPO">
-                            <div>Departamento</div>
-                            <input type="" id="DPTO">
+                            <div>Dirección 1</div>
+                            <input style="width: 500px;" type="" id="DIR1">
                         </div>
+                        <span></span>
                         <div class="CAMPO">
-                            <div>Provincia</div>
-                            <input type="text" id="PROV">
-                        </div>
-                        <div class="CAMPO">
-                            <div>Ciudad</div>
-                            <input type="text" id="CIUDAD">
-                        </div>
-                        <div class="CAMPO">
-                            <div>Distritos</div>
-                            <input type="text" id="DISTRITO">
-                        </div>
-                        <div class="CAMPO">
-                            <div>Cod. Postal</div>
-                            <input type="text" id="CODP">
-                        </div>
-                        <div class="CAMPO">
-                            <div>Dirección</div>
-                            <input type="text" id="DIR">
+                            <div>Dirección 2</div>
+                            <input style="width: 500px;" type="text" id="DIR2">
                         </div>
                     </div>
                     <div class="SEPARADORPANEL"></div>
@@ -357,12 +424,208 @@
                     <div id="PIEPANEL">
                         <button class="BTNPANEL" onclick="cargarPanel('DATOSDECLIENTE1')">← Atras</button>
                         <div>DATOS PERSONALES 2</div>
+                        <button class="BTNPANEL" onclick="cargarPanel('DATOSDECLIENTE3')">Siguiente →</button>
+                    </div>
+                </div>
+                <div class="PANEL" id="DATOSDECLIENTE3">
+                    <div id="CABECERAPANEL">
+                        <div>DATOS DE CLIENTE ENCONTRADO</div>
+                    </div>
+                    <div class="SEPARADORPANEL"></div>
+                    <div class="CONTENIDOPANEL">
+                        <div style="display:flex;align-items: center;justify-content: center;" class="CAMPO">
+                            <div>Nombre de usuario</div>
+                            <input type="text" id="NOMBREUSUARIO">
+                        </div>
+                        <span></span>
+                        <div style="display:flex;align-items: center;justify-content: center;" class="CAMPO">
+                            <div>Contraseña</div>
+                            <input type="password" id="CONTRASEÑA">
+                        </div>
+                    </div>
+                    <div class="SEPARADORPANEL"></div>
+                    <div id="PIEPANEL">
+                        <button class="BTNPANEL" onclick="cargarPanel('DATOSDECLIENTE2')">← Atras</button>
+                        <div>CREDENCIALES DE CLIENTE</div>
+                    </div>
+                </div>
+                <div class="PANEL" id="PANELREPORTES">
+                    <div style="position: relative;" id="CABECERAPANEL">
+                        <div>REPORTES</div>
+                        <div style="position: absolute;right: 0px;">
+                            <button  class="BTNPANEL" onclick="exportarReporte()">Exportar</button>
+                        </div>
+                    </div>
+                    <div class="SEPARADORPANEL"></div>
+                    <div class="CONTENIDOPANEL">
+                        <div>Seleccione el tipo de reporte:</div>
+                        <select id="selectorReporte" style="display:block;margin: auto;width: 400px;height: 40px;margin-top: 10px;margin-bottom: 10px;">
+                            <option>Obtener clientes registrados por intervalo de fechas</option>
+                            <option>Obtener clientes por producto adquirido</option>
+                            <option>Obtener clientes por número de reclamaciones</option>
+                            <option>Obtener clientes por número de reparaciones</option>
+                        </select>
+                        <div>Configuración de generación de reporte:</div>
+                        <div style="display:flex;align-items: center;justify-content: center;margin-top: 10px;margin-bottom: 10px;">
+                            <div style="display: flex;" id="CONFIGURACION_FECHA_REPORTE">
+                                <div class="CAMPO">
+                                    <div>Fecha inicio:</div>
+                                    <input type="date" id="FIR">
+                                </div>
+                                <div class="CAMPO">
+                                    <div>Fecha fin:</div>
+                                    <input type="date" id="FFR">
+                                </div>
+                            </div>
+                            <div style="display: none;" id="CONFIGURACION_ID_PRODUCTO_REPORTE">
+                                <div class="CAMPO">
+                                    <div>Id de producto:</div>
+                                    <input type="text" style="width: 150px;" id="IDPREPORTE">
+                                </div>
+                            </div>
+                            <div style="display: none;" id="CONFIGURACION_ID_CANTIDAD_REPORTE">
+                                <div class="CAMPO">
+                                    <div>Cantidad mínima:</div>
+                                    <input type="number" min="0" style="width: 100px;" id="CANTMIN">
+                                </div>
+                                <div class="CAMPO">
+                                    <div>Cantidad máxima:</div>
+                                    <input type="number" min="0" style="width: 100px;"  id="CANTMAX">
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display: block;text-align: right;">
+                            <button  class="BTNPANEL" onclick="generarReporte()">Generar</button>
+                        </div>
+                        <div style="margin-top: 15px;overflow-y:auto;max-height: 400px;">
+                            <table id="TABLAREPORTE">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nombre</th>
+                                    <th>Apellido.P</th>
+                                    <th>Apellido.M</th>
+                                    <th>DNI</th>
+                                    <th>Estado</th>
+                                    <th>Fecha Registro</th>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="SEPARADORPANEL"></div>
+                    <div id="PIEPANEL">
+                    </div>
+                </div>
+                <div class="PANEL" id="PANELAUDITAR">
+                    <div style="justify-content: center;" id="CABECERAPANEL">
+                        <div>AUDITAR CLIENTE</div>
+                    </div>
+                    <div class="SEPARADORPANEL"></div>
+                    <div class="CONTENIDOPANEL">
+                        <div class="CAMPO">
+                            <div>Ingrese el DNI del cliente a auditar:</div>
+                            <input type="text" style="width: 100px;" id="DNI">
+                        </div>
+                        <div style="margin-bottom: 5px;">Filtrar por:</div>
+                        <div style="margin-left: 30px">
+                            <div>
+                                Tipo de valor cambiado:
+                                <select id="selectorReporte" style="width: 200px;height: 40px;margin-left: 10px;">
+                                    <option>Nombre</option>
+                                    <option>Apellidos</option>
+                                    <option>Dirección</option>
+                                    <option>Nacionalidad</option>
+                                    <option>Email</option>
+                                    <option>Teléfono</option>
+                                    <option>RUC</option>
+                                    <option>Otros</option>
+                                </select>
+                            </div>
+                            <div>
+                                <div class="CAMPO">
+                                    <div>Fecha inicio:</div>
+                                    <input type="date" id="FIR">
+                                </div>
+                                <div class="CAMPO">
+                                    <div>Fecha fin:</div>
+                                    <input type="date" id="FFR">
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display: block;text-align: right;">
+                            <button  class="BTNPANEL" onclick="generarReporte()">Consultar</button>
+                        </div>
+                        <div style="margin-top: 15px;overflow-y:auto;max-height: 400px;">
+                            <table id="TABLAREPORTE">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Atributo Cambiado</th>
+                                    <th>Valor anterior</th>
+                                    <th>Nuevo Valor</th>
+                                    <th style="width: 150px;">Autor</th>
+                                    <th>Fecha de modificación</th>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="SEPARADORPANEL"></div>
+                    <div id="PIEPANEL">
+                    </div>
+                </div>
+                <div class="PANEL" id="PANELCONSULTAR">
+                    <div style="justify-content: center;" id="CABECERAPANEL">
+                        <div>CONSULTAR OPERACIONES</div>
+                    </div>
+                    <div class="SEPARADORPANEL"></div>
+                    <div class="CONTENIDOPANEL">
+                        <div class="CAMPO">
+                            <div>Ingrese el DNI del cliente:</div>
+                            <input type="text" style="width: 100px;" id="DNI">
+                        </div>
+                        <div style="margin-bottom: 5px;">Filtrar por:</div>
+                        <div style="margin-left: 30px">
+                            <div>
+                                Tipo de valor cambiado:
+                                <select id="selectorReporte" style="width: 200px;height: 40px;margin-left: 10px;">
+                                    <option>Ventas</option>
+                                    <option>Reclamaciones</option>
+                                    <option>Reparaciones</option>
+                                </select>
+                            </div>
+                            <div>
+                                <div class="CAMPO">
+                                    <div>Fecha inicio:</div>
+                                    <input type="date" id="FIR">
+                                </div>
+                                <div class="CAMPO">
+                                    <div>Fecha fin:</div>
+                                    <input type="date" id="FFR">
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display: block;text-align: right;">
+                            <button  class="BTNPANEL" onclick="generarReporte()">Consultar</button>
+                        </div>
+                        <div style="margin-top: 15px;overflow-y:auto;max-height: 400px;">
+                            <table id="TABLAREPORTE">
+                                <tr>
+                                    <th>#</th>
+                                    <th>ID Venta</th>
+                                    <th># Productos</th>
+                                    <th>Monto Pagado</th>
+                                    <th style="width: 150px;">Vendedor</th>
+                                    <th>Fecha de realización</th>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="SEPARADORPANEL"></div>
+                    <div id="PIEPANEL">
                     </div>
                 </div>
             </div>
         </section>
         <footer>
-            <div>Autores: Grupo 4</div>
+            <div>Autores: Sección 1 Diseño de Software</div>
             <div>v 1.0</div>
         </footer>
     </main>

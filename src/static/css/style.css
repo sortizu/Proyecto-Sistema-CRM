@@ -226,11 +226,6 @@ header{
     padding-bottom: 15px;
     margin-bottom: 1px;
 }
-.BTNMENULATERAL:not([panel]){
-    background-color: #e2e2e2;
-    cursor:default;
-}
-
 
 .BTNMENULATERAL:last-child{
     margin-bottom: 0;
@@ -272,7 +267,7 @@ span{
 }
 .CAMPO{
     
-    padding: 5px;
+    padding: 8px;
     align-items: center;
     display: inline-flex;
 }
@@ -280,7 +275,7 @@ span{
     margin-right: 10px;
 }
 .CAMPO input{
-    height: 25px;
+    height: 30px;
     background-color: #F1F1F1;
     border-radius: 10px;
     border-color: #CACACA;
@@ -323,6 +318,24 @@ button:hover{
 #PIEPANEL button:first-child{
     position: absolute;
     left: 0px;
+}
+
+select{
+    font-family: 'Inter';
+}
+
+table{
+    font-family: 'Inter';
+    border:1px solid;
+    border-collapse: collapse;
+    width: 100%;
+}
+tr:nth-child(even) {background-color: #f2f2f2;}
+th,td{
+    font-family: 'Inter';
+    border:1px solid;
+    height: 50px;
+    border-collapse: collapse;
 }
 /*Estilo de Pie de Pagina*/
 footer{
