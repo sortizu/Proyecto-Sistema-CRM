@@ -1,7 +1,9 @@
-from flask import Flask,render_template, request, url_for, redirect, flash
+from flask import Flask,render_template, request, url_for, redirect
 from flask_mysqldb import MySQL
 
+#Instancias Flask
 app = Flask(__name__)
+app.secret_key = 'mysecretkey'
 
 #Conexion MySQL
 app.config['MYSQL_HOST'] = 'localhost'
@@ -11,43 +13,52 @@ app.config['MYSQL_DB'] = 'crm_ventas'
 mysql = MySQL(app)
 
 
-#Configuraciones
-app.secret_key = 'mysecretkey'
-
-
 #Funciones
 @app.route('/')
 def index():
-    return redirect(url_for('catalogo', i = 1))
+    return redirect(url_for('catalogo_default', i = 1))
 
+@app.route('/catalogo')
+def index2():
+    return redirect(url_for('catalogo_default', i = 1))
 
 @app.route('/catalogo/<i>')
-def catalogo(i):
+def catalogo_default(i):
+
     cur = mysql.connection.cursor()
-
-    cur.execute('select nombre from oferta')
-    data_ofertas = cur.fetchall()
-
-    cur.execute('select nombre from plan')
-    data_planes = cur.fetchall()
-
-    cur.execute('select nombre from marca')
-    data_marcas = cur.fetchall()
-
-    cur.execute('select nombre from accesorio')
-    data_accesorios = cur.fetchall()
 
     i = int(i)
     pos = 8*(i-1)+1
-    cur.execute(f"select p.*,e.link from crm_ventas.producto p, crm_ventas.equipo e where fk_producto_equipo = id_equipo and id_producto >= '{pos}' limit 8;")
+    cur.execute(f"select p.*,e.link from crm_ventas.producto p, crm_ventas.equipo e where fk_producto_equipo = id_equipo and id_producto >= '{pos}' order by id_producto limit 8;")
     data_productos = cur.fetchall()
 
-    return render_template('catalogo.html', ofertas = data_ofertas, planes = data_planes, marcas = data_marcas, accesorios = data_accesorios, productos = data_productos)
+    cur.execute('select nombre from oferta')
+    data_ofertas = cur.fetchall()
+
+    cur.execute('select nombre from plan')
+    data_planes = cur.fetchall()
+
+    cur.execute('select nombre from marca')
+    data_marcas = cur.fetchall()
+
+    cur.execute('select nombre from accesorio')
+    data_accesorios = cur.fetchall()
+
+    return render_template('catalogo.html', productos = data_productos, ofertas = data_ofertas, planes = data_planes, marcas = data_marcas, accesorios = data_accesorios)
 
 
-@app.route('/catalogo-precio/<i>')
-def catalogo_precio(i):
+@app.route('/catalogo/producto',methods=['GET','POST'])
+def catalogo_idproducto():
+    
+#    if request.method == "POST":
+#        i=request.form['id']
+    if request.method == "GET":
+        i=request.args['id']
+
     cur = mysql.connection.cursor()
+    
+    cur.execute(f"select p.*,e.link from crm_ventas.producto p, crm_ventas.equipo e where fk_producto_equipo = id_equipo and id_producto = '{i}';")
+    data_productos = cur.fetchall()
 
     cur.execute('select nombre from oferta')
     data_ofertas = cur.fetchall()
@@ -61,12 +72,39 @@ def catalogo_precio(i):
     cur.execute('select nombre from accesorio')
     data_accesorios = cur.fetchall()
 
-    i = int(i)
-    pos = 8*(i-1)+1
-    cur.execute(f"select p.*,e.link from crm_ventas.producto p, crm_ventas.equipo e where fk_producto_equipo = id_equipo and id_producto >= '{pos}' order by p.precio limit 8;")
-    data_productos_precio = cur.fetchall()
+    return render_template('catalogo.html', productos = data_productos, ofertas = data_ofertas,
+        planes = data_planes, marcas = data_marcas, accesorios = data_accesorios)
 
-    return render_template('catalogo.html', ofertas = data_ofertas, planes = data_planes, marcas = data_marcas, accesorios = data_accesorios, productos_precio = data_productos_precio)
+
+
+@app.route('/catalogo',methods=['GET','POST'])
+def catalogo_ordenado():
+    
+    if request.method == "POST":
+        opcion_ordenar=request.form['opcion_ordenar']
+        print(opcion_ordenar)
+
+        cur = mysql.connection.cursor()
+        
+        cur.execute(f"select p.*,e.link from crm_ventas.producto p, crm_ventas.equipo e where fk_producto_equipo = id_equipo order by '{opcion_ordenar}' asc;")
+        data_productos = cur.fetchall()
+
+        cur.execute('select nombre from oferta')
+        data_ofertas = cur.fetchall()
+
+        cur.execute('select nombre from plan')
+        data_planes = cur.fetchall()
+
+        cur.execute('select nombre from marca')
+        data_marcas = cur.fetchall()
+
+        cur.execute('select nombre from accesorio')
+        data_accesorios = cur.fetchall()
+
+    return render_template('catalogo.html', productos = data_productos, ofertas = data_ofertas,
+        planes = data_planes, marcas = data_marcas, accesorios = data_accesorios)
+
+
 
 
 @app.route('/detalles/<i>')#creo que está mal, que debe ser una url previa
@@ -89,6 +127,13 @@ def ver_detalles(i):
     data_oferta = cur.fetchone()
     
     return render_template('detalles.html', producto = data_producto, equipo = data_equipo, plan = data_plan, accesorio = data_accesorio, oferta = data_oferta)
+
+
+@app.route('/carrito')
+def carrito():
+    return render_template('carrito.html')
+
+
 
 """
 @app.route('/catalogo/<int: id>')   #BUSQUEDA POR ID
