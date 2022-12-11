@@ -1,5 +1,36 @@
-{% extends "base.html" %}
-{% block bodycontent %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <title>Document</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
+    </script>
+
+<body>
+    <header>
+        <div class="Modulos">
+            <button><img class="logo" src="../static/resources/images/cubo.png" title="Inicio"></button>
+        </div>
+        <div class="Sesion">
+            <div class="usuario"><img src="../static/resources/images/usuario.png" title="Inicio">
+                <label>Nombre</label>
+            </div>
+            <div class="botones">
+                <button class="salir"><label>Salir</label><img
+                        src="../static/resources/images/boton-de-encendido-apagado.png" title="Salir"></button>
+                <button class="configuracion"><label>Configuración</label><img
+                        src="../static/resources/images/configuraciones.png" title="Configuracion"></button>
+            </div>
+        </div>
+    </header>
     <div class="contenido">
         <div class="lateral">
             <div class="cliente"><img src="../static/resources/images/usuario.png" title="Cliente">ID-CLIENTE</div>
@@ -16,12 +47,12 @@
                         <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body">
-                                <form action = "/catalogo" method = "POST">
-                                    <input type = "text" name = "min" pattern="[0-9]{1,5}" placeholder = "min">
-                                    <input type = "text" name = "max" pattern="[0-9]{1,5}" placeholder = "max">
-                                    <button type = "submit">Confirmar precio</button>
+                                <form action="/catalogo" method="POST">
+                                    <input type="text" name="min" pattern="[0-9]{1,5}" placeholder="min">
+                                    <input type="text" name="max" pattern="[0-9]{1,5}" placeholder="max">
+                                    <button type="submit" class="btn-secondary">Confirmar precio</button>
                                 </form>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -37,12 +68,13 @@
                             <div class="accordion-body d-flex flex-column mb-3">
                                 {%for oferta in ofertas %}
                                 <div class="form-check">
-                                    
-                                    <input class="form-check-input" type="radio" name="{{oferta.0}}" id="flexRadioDefault1">
+
+                                    <input class="form-check-input" type="radio" name="{{oferta.0}}"
+                                        id="flexRadioDefault1">
                                     <label class="form-check-label" for="flexRadioDefault1">
                                         {{oferta.0}}
                                     </label>
-                                    
+
                                 </div>
                                 {% endfor %}
                             </div>
@@ -59,7 +91,7 @@
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body d-flex flex-column mb-3">
                                 {%for plan in planes %}
-                                <button >{{plan.0}}</button>
+                                <button>{{plan.0}}</button>
                                 {% endfor %}
                             </div>
                         </div>
@@ -75,7 +107,7 @@
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body d-flex flex-column mb-3">
                                 {%for marca in marcas %}
-                                <button >{{marca.0}}</button>
+                                <button>{{marca.0}}</button>
                                 {% endfor %}
                             </div>
                         </div>
@@ -91,7 +123,7 @@
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body d-flex flex-column mb-3">
                                 {%for accesorio in accesorios %}
-                                <button >{{accesorio.0}}</button>
+                                <button>{{accesorio.0}}</button>
                                 {% endfor %}
                             </div>
                         </div>
@@ -109,19 +141,20 @@
                 <div class="botones">
                     <nav class="navbar bg-light">
                         <div class="container-fluid" style="width:250px;">
-                            <form class="d-flex" role="search" method = "GET" action="{{url_for('catalogo_idproducto')}}">
-                                <input class="form-control me-2" type="search" name = "id" placeholder="Buscar por id" aria-label="Search">
+                            <form class="d-flex" role="search" method="GET" action="{{url_for('catalogo_idproducto')}}">
+                                <input class="form-control me-2" type="search" name="id" placeholder="Buscar por id"
+                                    aria-label="Search">
                                 <button class="btn btn-primary" type="submit">Buscar</button>
                             </form>
                         </div>
                     </nav>
-                    <form class="d-flex" method = "POST" action="{{url_for('catalogo_ordenado')}}">
+                    <form class="d-flex" method="POST" action="{{url_for('catalogo_ordenado')}}">
                         <select class="selectpicker form-select input" style="width:auto;" name="opcion_ordenar">
                             <option selected disabled>Ordenar por: </option>
                             <option value="nombre">Nombre</option>
                             <option value="precio">Precio</option>
                             <option value="stock">Stock</option>
-                        </select>            
+                        </select>
                         <button class="btn btn-primary" type="submit">Buscar</button>
                     </form>
                 </div>
@@ -129,8 +162,9 @@
             <div class="paginas">
                 <label>Páginas: </label>
                 <ol>
-                    <button><img title="atrás" src="../static/resources/images/icons8-izquierda-24 (1).png" style="transform:rotate(0deg);"></button>
-                
+                    <button><img title="atrás" src="../static/resources/images/icons8-izquierda-24 (1).png"
+                            style="transform:rotate(0deg);"></button>
+
                     <li>
                         <button>1</button>
                     </li>
@@ -147,28 +181,30 @@
                 </ol>
             </div>
             <div class="catalogo">
-            {%for producto in productos %}    
+                {%for producto in productos %}
                 <div class="card">
                     <img src={{producto.7}} class="card-img-top" alt="..." height="180">
                     <div class="card-body">
-                        
+
                         <label>id: {{producto.0}}</label>
                         <h5 class="card-title">{{producto.3}}</h5>
                         <label>Stock: {{producto.5}}</label>
                         <div class="card-desc">
                             <label>S/{{producto.4}}</label>
                         </div>
-                        
+
                         <div class="card-button">
                             <a href="{{url_for('ver_detalles', i=producto.0)}}" class="btn btn-secondary">Detalles</a>
                             <a href="#" class="btn btn-primary">Agregar</a>
                         </div>
                     </div>
                 </div>
-            {% endfor %}
+                {% endfor %}
             </div>
         </div>
 
     </div>
+</body>
 
+</html>
 {% endblock %}

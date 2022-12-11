@@ -115,6 +115,7 @@ header button{
     justify-content: center;
     align-items: center;
 }
+
 .principal{
     width:80%;
 }
@@ -147,6 +148,15 @@ width: 100%;
     border: none;
     background-color: transparent;
     font-size: small;
+}
+.accordion-body .btn-secondary{
+    border-color: #888888;
+    border-width: 1px;
+   border-style: solid;
+   margin-top: 10%;
+}
+.accordion-body input{
+    width: 100%;
 }
 .foto{
     width: 40%;
