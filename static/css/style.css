@@ -3,6 +3,17 @@ body{
     height: 100%;
     width: 100%;
 }
+.btn-primary{
+    background-color: #3E1C6C;
+    color: #f1f1f1;
+    border-radius: 20px;
+}
+.btn-secondary{
+    background-color: #f1f1f1;
+    color: #3E1C6C;
+    border: #3E1C6C 1px solid;
+    border-radius: 20px;
+}
 /*Estilos de la cabecera*/
 header{
     display:flex;
@@ -67,6 +78,10 @@ header button{
 .configuracion{
     width: 50%;
 }
+
+.cuerpo-vis{
+    display: flex;
+}
 .contenido{
     margin-top: 30px;
     margin-right:30px;
@@ -97,206 +112,10 @@ header button{
     height: 80%;
     margin-right: 10%;
 }
-.filtros{
-    display: flex;
-    flex-direction: column;
-    width: 70%;
-    margin-top: 20px;
-}
-.filtros label{
-    background-color: #4C1A91;
-    color: #fff;
-    font-weight: bolder;
-    border-radius: 5px;
-    width: 100%;
-    height: 30px;
-    display:flex;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-}
-
-.principal{
-    width:80%;
-}
-.cabecera{
-display: flex;
-width: 100%;
-}
-.titulo{
-    display: block;
-    width: 40%;
-}
-.titulo button{
-    background-color: transparent;
-    color: #4C1A91;
-    border: none;
-}
-.titulo label{
-    color: #4C1A91;
-    font-weight: bolder;
-    font-size: x-large;
-}
-.botones{
-    justify-content: space-around;
-    width: 60%;
-}
-.accordion-body{
-    display: flex;
-}
-.accordion-body button{
-    border: none;
-    background-color: transparent;
-    font-size: small;
-}
-.accordion-body .btn-secondary{
-    border-color: #888888;
-    border-width: 1px;
-   border-style: solid;
-   margin-top: 10%;
-}
-.accordion-body input{
-    width: 100%;
-}
-.foto{
-    width: 40%;
-}
-.descs{
-    width: 100%;
-}
-.descs label{
-    color: #4C1A91;
-    background-color:transparent ;
-    font-weight: bold;
-}
-.descs p{
-    background-color:#E6E6E6;
-    border-radius: 30px;
-    padding: 2%;
-}
-.carrito{
-    margin-top: 10px;
-    background-color: #4C1A91;
-    color:#fff;
-    font-weight: bolder;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    border-radius: 15px;
-    padding-top: 5%;
-    padding-bottom: 5%;
-}
-.buscar, .ordenar{
-    width: 40%;
-    height: 40px ;
-    text-align: center;
-    color: #4C1A91;
-    font-weight: 700;
-    font-size:large;
-}
-
-.buscar::placeholder{
-    color: #4C1A91;
-}
-
-.paginas{
-    display: flex;
+/*ESTILOS CARRITO*/
+.seccioncarrito{
     width: 50%;
-}
-.paginas ol{
-    display: flex;
-    list-style: none;
-    justify-content: space-around;
-    width: 40%;
-}
-.paginas button{
-    height: 100%;
-    background-color: transparent;
-    border: none;
-    border-radius: 50px;
-}
-button:hover{
-    background-color: #D1D1D1;
-}
-.paginas img{
-    transform: rotate(180deg);
-}
-.catalogo{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-}
-.card{
-    width: 20%;
-    margin: 2%;
-}
-.card-desc{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.card-button{
-    display: flex;
-    justify-content: space-around;
-}
-.card-text{
-    width: 70%;
-}
-.btn-primary{
-    background-color: #3E1C6C;
-    color: #fff;
-    border: none;
-    border-radius:30px;
-}
-.btn-secondary{
-    background-color: #ffff;
-    color: #3E1C6C;
-    border-radius:30px;
-}
-.info3{
-    width: 100%;
-    display: flex;
-}
-.info3 .accordion-item{
-    width: 25%;
-    justify-content: space-around;
-    margin-left: 4%;
-    margin-right: 4%;
-    border:none;
-}
-#equipo{
-    margin-left: 4%;
-    margin-right: 4%;
-}
-.detalles-cab{
-    height: 100px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    color:#4C1A91;
-    font-weight: 500;
-    font-size: large;
-}
-.volver{
-    background-color: transparent;
-    border: none;
-    color: #4C1A91;
-    font-weight: 500;
-}
-.precio, .stock{
-    background-color:#D1D1D1;
-    width: 200px;
-    color: #3E1C6C;
-    border-radius: 20px;
-    justify-content: center;
-    display: flex;
-}
-.agregar{
-    color: #fff;
-    background-color: #4C1A91;
-    border-radius: 20px;
+    margin-top: 2%;
 }
 .contenidoCar{
     width: 90%;
@@ -307,9 +126,18 @@ button:hover{
     margin-left: 5%;
     margin-right: 5%;
 }
+.titulo{
+    font-size:xx-large;
+    color: #3E1C6C;
+    font-weight: 600;
+}
 .det-cab{
     text-align: left;
     margin-top: 5%;
+}
+.det-cab button{
+    border: none;
+    background-color: transparent;
 }
 .tabla{
     width: 100%;
@@ -323,6 +151,13 @@ button:hover{
 }
 th{
     text-align: center;
+    
+}
+th button{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 tr{
     border-collapse: collapse;
@@ -344,59 +179,223 @@ tr{
 }
 .importe{
     display: flex;
+    flex-direction: column;
     justify-content: right;
-    align-items: center;
     padding-top: 2%;
     border-top: 1px solid #D1D1D1;
 }
-/* estilos del popup */
+/*ESTILOS DE CUADRO DE PAGO*/
 .popup{
-  display: none; 
-  position: fixed;
-  width:10%;
-  bottom: 50%;
-  right: 45%;
-  border: 3px solid #f1f1f1;
-  z-index: 9;
+    display: none; 
+    position: fixed;
+    width:10%;
+    bottom: 50%;
+    right: 45%;
+    border: 3px solid #f1f1f1;
+    z-index: 9;
+  }
+  .cuadro{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+  }
+  .cuadro label{
+   width: 100%;
+   background-color: #4C1A91;
+   color: #fff;
+   text-align: center;
+  }
+  .cuadro button{
+  background-color: #fff;
+  color:#888888 ;
+  width: 100%;
+  border:1px #f1f1f1;
+  }
+.cuadro a{
+    background-color: #D1D1D1;
+    color: #000;
+    font-style: oblique;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    border: #888888 2px solid;
 }
-.cuadro{
+.cab-cua{
+    background-color: #4C1A91;
+    display: flex;
+    justify-content: space-between;
+}
+.cab-cua button{
+    background-color: #4C1A91;
+    border: none;
+    padding: none;
+    width: 15%;
+}
+.cab-cua img{
+    background-color: #4C1A91;
+    width:90%;
+}
+.btn-cer{
+    background-color: #4C1A91;
+    border:none;
+}
+/*ESTILOS LISTA*/
+.seccionlista{
+    width: 50%;
+    margin-top: 2%;
+}
+.cuerpo-vis{
+    width: 100%;
+}
+.cabecera-lista{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 5%;
+}
+.main-browser__input, #seleccionar{
+    height: 40px;
+    background-color: #D1D1D1;
+    border: none;
+    width: 100%;
+    color:#3E1C6C;
+    font-weight: 700;
+}
+.main-browser__input::placeholder{
+    color: #3E1C6C;
+}
+
+.tabla-prod{
+    width: 100%;
+}
+.buscador{
+    display: flex;
+}
+.cuerpo-lista{
+    height: 70%;
+    overflow-y: scroll;
+}
+/*ESTILOS FILTROS*/
+.accordion-body-pr{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
-.cuadro label{
- width: 100%;
- background-color: #3E1C6C;
- color: #fff;
- text-align: center;
-}
-.cuadro button{
-background-color: #fff;
-color:#888888 ;
-width: 100%;
-border:1px #f1f1f1;
-}
-.pdf{
-    display: flex;
-    justify-content: center;
-    margin-top: 2%;
+.accordion-body-pr .accordion-item{
     width: 100%;
-    height: 600px;
 }
-.btnspdf{
+.accordion-item{
+    font-size: large;
+    color:#D1D1D1;
+    width: 40%;
+    text-align: center;
+}
+.accordion-item h4{
+background-color: #3E1C6C;
+border-radius: 5px;
+font-size: large;
+padding: 2%;
+margin:none;
+width: 100%;
+text-align: center;
+}
+.accordion-item h3{
+    background-color: #D1D1D1;
+    color: #3E1C6C;
+    font-size: medium;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px #888888 solid;
+}
+.accordion-item .accordion-header{
+    background-color: #D1D1D1;
+    width: 100%;
+    text-align: center;
+}
+/* .accordion-body{
+    background-color: #D1D1D1;
+    font-size: small;
+    color:#3E1C6C;
+} */
+
+/*DETALLES ESTILOS*/
+#secciondetalles{
+    display: none;
+    position: fixed;
+    width:60%;
+    height: fit-content;
+    top: 10%;
+    bottom: 0;
+    right: 0;
+    left: 20%;
+    border: 3px solid #888888;
+    z-index: 90;
+    overflow-y: scroll;
+    background-color: #f1f1f1;
+}
+.detalles-cab{
+    padding-top: 10px;
+    padding-bottom: 10px;
     display: flex;
-    justify-content: right;
-    gap:10px;
-    margin-bottom: 5%;
-    margin-top: 2%;
-    width: 90%;
+    justify-content: space-around;
 }
-.btnspdf button{
-    /* margin-right: 2%; */
-    padding: 1%;
-    background-color: #4C1A91;
+.detalles-cab label{
+    color: #3E1C6C;
+    background-color:transparent;
 }
-.btnspdf button:hover{
-    background-color: #888888;
+.detalles-cab .llenar{
+    color: #000;
+    background-color: #f1f1f1;
+    border-radius: 20px;
+}
+.accordion #equipo{
+    width: 100%;
+}
+.accordion .info3{
+    display: flex;
+}
+#secciondetalles .accordion-body{
+    background-color: transparent;
+    color: #000;
+    display: flex;
+    width: 100%;
+}
+.foto{
+    width:40%;
+}
+.desc{
+    width:60%;
+}
+/*DETALLES COMPROBANTE*/
+#comprobante{
+ display: none;
+ width:50%;
+ height: 70%;
+ position: fixed;
+ top: 0;
+ bottom: 0;
+ right: 0;
+ left: 30%;
+border: 3px solid #f1f1f1;
+z-index: 120;
+overflow-y: scroll;
+    background-color: #f1f1f1;
+    
+ 
+}
+/*DETALLES COTIZACION*/
+#cotizacion{
+    display: none;
+    width:50%;
+    height: 70%;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    border: 3px solid #f1f1f1;
+    z-index: 900;
+    overflow-y: scroll;
+    background-color: #f1f1f1;
+    
 }
