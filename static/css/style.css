@@ -148,6 +148,15 @@ width: 100%;
     background-color: transparent;
     font-size: small;
 }
+#planacc{
+    width: 100%;
+    border:none;
+    padding:1px;
+}
+.form-check-input{
+    width:100%;
+    
+}
 .foto{
     width: 40%;
 }
@@ -389,4 +398,14 @@ border:1px #f1f1f1;
 }
 .btnspdf button:hover{
     background-color: #888888;
+}
+
+.accordion-body .btn-secondary{
+    border-color: #888888;
+    border-width: 1px;
+   border-style: solid;
+   margin-top: 10%;
+}
+.accordion-body input{
+    width: 100%;
 }
