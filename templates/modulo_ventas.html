@@ -61,6 +61,14 @@
                             <th><label>120.00</label></th>
                             <th><label>220.00</label></th>
                         </tr>
+                        <tr>
+
+                            <th><label>Samsung Galaxy S22</label></th>
+                            <th><button class="btn-secondary">- </button><label>2</label><button
+                                    class="btn-secondary">+</button></th>
+                            <th><label>120.00</label></th>
+                            <th><label>220.00</label></th>
+                        </tr>
                     </table>
 
                     <div class="importe">
@@ -101,12 +109,10 @@
                                 <div id="collapseOne-One" class="accordion-collapse collapse"
                                     aria-labelledby="headingOne-One" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        <label>1gb</label>
-                                        <br>
-                                        <label>1gb</label>
-                                        <br>
-                                        <label>1gb</label>
-                                        <br>
+                                        <button class="opciondin" value="todos">TODOS</button>
+                                        {%for memoria in data_ram %}
+                                        <button class="opciondin" value={{memoria.0}}>{{memoria.0}} GB</button>
+                                        {% endfor %}
                                     </div>
                                 </div>
                             </div>
@@ -122,12 +128,9 @@
                                 <div id="collapseOne-Two" class="accordion-collapse collapse"
                                     aria-labelledby="headingOne-Two" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        <label>1gb</label>
-                                        <br>
-                                        <label>1gb</label>
-                                        <br>
-                                        <label>1gb</label>
-                                        <br>
+                                        {%for procesador in data_procesador %}
+                                        <button class="opciondin" value={{procesador.0}}>{{procesador.0}}</button>
+                                        {% endfor %}
                                     </div>
                                 </div>
                             </div>
@@ -143,12 +146,9 @@
                                 <div id="collapseOne-Three" class="accordion-collapse collapse"
                                     aria-labelledby="headingOne-Three" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        <label>1gb</label>
-                                        <br>
-                                        <label>1gb</label>
-                                        <br>
-                                        <label>1gb</label>
-                                        <br>
+                                        {%for camara in data_camara %}
+                                        <button class="opciondin" value={{camara.0}}>{{camara.0}} Pixeles</button>
+                                        {% endfor %}
                                     </div>
                                 </div>
                             </div>
@@ -164,12 +164,13 @@
                                 <div id="collapseOne-Four" class="accordion-collapse collapse"
                                     aria-labelledby="headingOne-Four" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        <label>1gb</label>
+                                        <label>Maximo</label>
+                                        <input id="maximo" type="text">
                                         <br>
-                                        <label>1gb</label>
+                                        <label>Minimo</label>
+                                        <input id="minimo" type="text">
                                         <br>
-                                        <label>1gb</label>
-                                        <br>
+                                        <button class="btn-primary" onclick="filtrarprecio()">Filtrar</button>
                                     </div>
                                 </div>
                             </div>
@@ -185,12 +186,9 @@
                                 <div id="collapseOne-Five" class="accordion-collapse collapse"
                                     aria-labelledby="headingOne-Five" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        <label>1gb</label>
-                                        <br>
-                                        <label>1gb</label>
-                                        <br>
-                                        <label>1gb</label>
-                                        <br>
+                                        {%for plan in data_plan %}
+                                        <button class="opciondin" value={{plan.0}}>{{plan.1}}</button>
+                                        {% endfor %}
                                     </div>
                                 </div>
                             </div>
@@ -212,8 +210,11 @@
                     </div>
                 </div>
             </div>
+            <script>
+
+            </script>
             <div class="cuerpo-lista">
-                <table class="tabla-prod">
+                <table class="tabla-prod" id="tabla">
                     <tr>
                         <th>ACCION</th>
                         <th>NOMBRE</th>
@@ -222,18 +223,21 @@
                         <th>PRECIO</th>
                     </tr>
                     <!-- formato de llenado de tabla -->
-                    <tr>
+                    {%for producto in data_productos %}
+                    <tr id={{producto.1}}>
                         <th>
                             <div class="card-button">
                                 <a href="#" onclick="openForm('secciondetalles')" class="btn btn-secondary">Detalles</a>
                                 <a href="#" class="btn btn-primary">Agregar</a>
                             </div>
                         </th>
-                        <th><label>Samsung Galaxy S22</label></th>
-                        <th><label>2</label></th>
-                        <th><label>2</label></th>
-                        <th><label>120.00</label></th>
+                        <th><label>{{producto.0}}</label>
+                        </th>
+                        <th><label>{{producto.1}}</label></th>
+                        <th><label>{{producto.2}}</label></th>
+                        <th id="precioproducto"><label>{{producto.3}}</label></th>
                     </tr>
+                    {% endfor %}
                 </table>
             </div>
         </section>
@@ -259,9 +263,9 @@
             <button class="btn-secondary" onclick="closeForm('secciondetalles')"><img title="volver"
                     src="../static/resources/images/icons8-izquierda-24 (1).png">Volver</button>
             <label>Precio</label>
-            <label class="llenar">S/{{producto.0}}</label>
+            <label class="llenar">S/</label>
             <label>Stock</label>
-            <label class="llenar">{{producto.1}}</label>
+            <label class="llenar">1</label>
             <button class="btn-primary">AGREGAR AL CARRITO</button>
         </div>
         <div class="accordion" id="accordionPanelsStayOpenExample">
@@ -275,14 +279,14 @@
                 <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                     data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                        <div class="foto"><img title="foto" src="{{equipo.3}}" height="300"></div>
+                        <div class="foto"><img title="foto" src="#" height="300"></div>
                         <div class="descs">
                             <label>Nombre</label>
-                            <p>{{equipo.0}}</p>
+                            <p></p>
                             <label>Descripción</label>
-                            <p>{{equipo.1}}</p>
+                            <p></p>
                             <label>Garantía</label>
-                            <p>{{equipo.2}} meses</p>
+                            <p> meses</p>
                         </div>
                     </div>
                 </div>
@@ -300,11 +304,11 @@
                         <div class="accordion-body">
                             <div class="descs">
                                 <label>Nombre</label>
-                                <p>{{plan.0}}</p>
+                                <p></p>
                                 <label>Precio</label>
-                                <p>S/{{plan.1}}</p>
+                                <p>S/</p>
                                 <label>Descripción</label>
-                                <p>{{plan.2}}</p>
+                                <p></p>
                             </div>
                         </div>
                     </div>
@@ -321,9 +325,9 @@
                         <div class="accordion-body">
                             <div class="descs">
                                 <label>Nombre</label>
-                                <p>{{accesorio.0}}</p>
+                                <p></p>
                                 <label>Descripción</label>
-                                <p>{{accesorio.1}}</p>
+                                <p></p>
                             </div>
                         </div>
                     </div>
@@ -340,11 +344,11 @@
                         <div class="accordion-body">
                             <div class="descs">
                                 <label>Nombre</label>
-                                <p>{{oferta.0}}</p>
+                                <p></p>
                                 <label>Descuento</label>
-                                <p>{{oferta.1}}</p>
+                                <p></p>
                                 <label>Descripción</label>
-                                <p>{{oferta.2}}</p>
+                                <p></p>
                             </div>
                         </div>
                     </div>
@@ -357,7 +361,7 @@
             <button class="btn-secondary" onclick="closeForm('comprobante')"><img title="volver"
                     src="../static/resources/images/icons8-izquierda-24 (1).png">Volver</button>
             <div class="pdf">
-                <embed src="../static/resources/boletaventas.pdf" type="application/pdf" width="70%" height="100%">
+                <embed src="../static/resources/boletaventas.pdf" type="application/pdf" width="80%" height="100%">
             </div>
             <div class="btnspdf">
                 <button class="btn-primary">Enviar comprobante</button>
@@ -368,7 +372,7 @@
             <button class="btn-secondary" onclick="closeForm('cotizacion')"><img title="volver"
                     src="../static/resources/images/icons8-izquierda-24 (1).png">Volver</button>
             <div class="pdf">
-                <embed src="../static/resources/pdfcotiza.pdf" type="application/pdf" width="70%" height="100%">
+                <embed src="../static/resources/pdfcotiza.pdf" type="application/pdf" width="80%" height="100%">
             </div>
             <div class="btnspdf">
                 <button class="btn-primary">Enviar cotizacion</button>
@@ -386,6 +390,13 @@
     function closeForm(id) {
         document.getElementById(id).style.display = "none";
     }
+    function filtrarprecio() {
+        // let maximo = document.getElementById(maximo).value;
+        // let minimo = document.getElementById(minimo).value;
+        var filas = document.getElementById('tabla');
+        console.log(filas);
+    }
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 </html>
