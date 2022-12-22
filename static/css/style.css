@@ -112,121 +112,9 @@ header button{
     height: 80%;
     margin-right: 10%;
 }
-<<<<<<< HEAD
-.filtros{
-    display: flex;
-    flex-direction: column;
-    width: 70%;
-    margin-top: 20px;
-}
-.filtros label{
-    background-color: #4C1A91;
-    color: #fff;
-    font-weight: bolder;
-    border-radius: 5px;
-    width: 100%;
-    height: 30px;
-    display:flex;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-}
-.principal{
-    width:80%;
-}
-.cabecera{
-display: flex;
-width: 100%;
-}
-.titulo{
-    display: block;
-    width: 40%;
-}
-.titulo button{
-    background-color: transparent;
-    color: #4C1A91;
-    border: none;
-}
-.titulo label{
-    color: #4C1A91;
-    font-weight: bolder;
-    font-size: x-large;
-}
-.botones{
-    justify-content: space-around;
-    width: 60%;
-}
-.accordion-body{
-    display: flex;
-}
-.accordion-body button{
-    border: none;
-    background-color: transparent;
-    font-size: small;
-}
-#planacc{
-    width: 100%;
-    border:none;
-    padding:1px;
-}
-.form-check-input{
-    width:100%;
-    
-}
-.foto{
-    width: 40%;
-}
-.descs{
-    width: 100%;
-}
-.descs label{
-    color: #4C1A91;
-    background-color:transparent ;
-    font-weight: bold;
-}
-.descs p{
-    background-color:#E6E6E6;
-    border-radius: 30px;
-    padding: 2%;
-}
-.carrito{
-    margin-top: 10px;
-    background-color: #4C1A91;
-    color:#fff;
-    font-weight: bolder;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    border-radius: 15px;
-    padding-top: 5%;
-    padding-bottom: 5%;
-}
-.buscar, .ordenar{
-    width: 40%;
-    height: 40px ;
-    text-align: center;
-    color: #4C1A91;
-    font-weight: 700;
-    font-size:large;
-}
-
-.buscar::placeholder{
-    color: #4C1A91;
-}
-
-.paginas{
-    display: flex;
-=======
 /*ESTILOS CARRITO*/
 .seccioncarrito{
-<<<<<<< HEAD
->>>>>>> 72e6e77b2992d36a77959e133b7d2b6ff0be9ae4
-    width: 50%;
-=======
     width: 40%;
->>>>>>> 130b98c69ed398c8599ea3ff25d714e50ebad8b6
     margin-top: 2%;
 }
 .contenidoCar{
@@ -254,6 +142,11 @@ width: 100%;
 .tabla{
     width: 100%;
 }
+
+.tabla label{
+    font-weight:lighter;
+}
+
 .carritotabla{
     table-layout: fixed;
   width: 100%;
@@ -379,13 +272,31 @@ tr{
 }
 
 .tabla-prod{
-    width: 100%;
+    width: 98%;
 }
+
+th:first-child{
+    width: 120px;
+}
+
+th:nth-child(3){
+    width: 40px;
+}
+
+th:nth-child(4), th:nth-child(5){
+    width: 80px;
+}
+
+.tabla-prod label{
+    font-weight:lighter;
+    font-size: 14px;
+}
+
 .buscador{
     display: flex;
 }
 .cuerpo-lista{
-    height: 70%;
+    height: 90%;
     overflow-y: scroll;
 }
 /*ESTILOS FILTROS*/
@@ -460,20 +371,6 @@ text-align: center;
     color: #3E1C6C;
     background-color:transparent;
 }
-<<<<<<< HEAD
-.btnspdf button:hover{
-    background-color: #888888;
-}
-
-.accordion-body .btn-secondary{
-    border-color: #888888;
-    border-width: 1px;
-   border-style: solid;
-   margin-top: 10%;
-}
-.accordion-body input{
-    width: 100%;
-=======
 .detalles-cab .llenar{
     color: #000;
     background-color: #f1f1f1;
@@ -528,10 +425,6 @@ border: #3E1C6C 2px solid;
     z-index: 900;
     overflow-y: scroll;
     background-color: #f1f1f1;
-<<<<<<< HEAD
-    
->>>>>>> 72e6e77b2992d36a77959e133b7d2b6ff0be9ae4
-=======
     border: #3E1C6C 2px solid;
     padding: 2%;
 }
@@ -548,5 +441,4 @@ border: #3E1C6C 2px solid;
     justify-content: center;
     align-items: center;
     gap:30px;
->>>>>>> 130b98c69ed398c8599ea3ff25d714e50ebad8b6
 }

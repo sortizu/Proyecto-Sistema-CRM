@@ -8,22 +8,22 @@ app.secret_key = 'mysecretkey'
 # Conexion MySQL
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = '50bb11b76'
+app.config['MYSQL_PASSWORD'] = 'root'
 app.config['MYSQL_DB'] = 'crm_ventas'
 mysql = MySQL(app)
 
 
+# @app.route('/')
+# def index():
+#     return render_template('modulo_ventas.html')
+
+
 @app.route('/')
-def index():
-    return render_template('modulo_ventas.html')
-
-
-@app.route('/intento')
 def llenar_catalogo():
     try:
         cursor = mysql.connection.cursor()
 
-        sql = "SELECT nombre, id_producto, stock, precio FROM producto"
+        sql = "SELECT nombre, id_producto, stock, precio FROM producto limit 10"
         cursor.execute(sql)
         productos = cursor.fetchall()
 
@@ -70,12 +70,12 @@ def devolver_equipojson(id):
         plan = {}
         accesorio = {}
         cursor = mysql.connection.cursor()
-        sql = "SELECT * FROM equipo where id_equipo='{0}'".format(id)
+        sql = f"SELECT * FROM equipo where id_equipo='{id}'"
         cursor.execute(sql)
         datos_equipo = cursor.fetchall()
         if datos_equipo[0][13] != None:
             id_plan = datos_equipo[0][13]
-            sql = "SELECT * FROM plan WHERE id_plan= '{0}'".format(id_plan)
+            sql = f"SELECT * FROM plan WHERE id_plan= '{id_plan}'"
             cursor.execute(sql)
             datos_plan = cursor.fetchall()
             plan = {'id_plan': datos_plan[0][0], 'nombre': datos_plan[
@@ -83,8 +83,7 @@ def devolver_equipojson(id):
 
         if datos_equipo[0][14] != None:
             id_accesorio = datos_equipo[0][14]
-            sql = "SELECT * FROM accesorio WHERE id_accesorio= '{0}'".format(
-                id_accesorio)
+            sql = f"SELECT * FROM accesorio WHERE id_accesorio= '{id_accesorio}'"
             cursor.execute(sql)
             datos_accesorio = cursor.fetchall()
             accesorio = {'id_accesorio': datos_accesorio[0][0], 'nombre': datos_accesorio[0][1],
@@ -103,7 +102,7 @@ def devolver_ofertajson(id):
     try:
         if id != None:
             cursor = mysql.connection.cursor()
-            sql = "SELECT * FROM oferta WHERE id_oferta= '{0}'".format(id)
+            sql = f"SELECT * FROM oferta WHERE id_oferta= '{id}'"
             cursor.execute(sql)
             datos_oferta = cursor.fetchall()
             oferta = {'id_oferta': datos_oferta[0][0], 'nombre': datos_oferta[0][1],
@@ -117,19 +116,17 @@ def devolver_ofertajson(id):
 def entregar_ventas(id):
     try:
         cursor = mysql.connection.cursor()
-        sql = "SELECT * FROM venta where id_cliente='{0}'".format(id)
+        sql = f"SELECT * FROM venta where id_cliente='{id}'"
         cursor.execute(sql)
         datos_venta = cursor.fetchall()
         ventas = []
         for fila in datos_venta:
-            sql = "SELECT * FROM detalle_venta WHERE fk_detventa_venta='{0}'".format(
-                fila[0])
+            sql = f"SELECT * FROM detalle_venta WHERE fk_detventa_venta='{fila[0]}'"
             cursor.execute(sql)
             detalles_venta = cursor.fetchall()
             detalles = []
             for row in detalles_venta:
-                sql = "SELECT * FROM producto WHERE id_producto='{0}'".format(
-                    row[1])
+                sql = f"SELECT * FROM producto WHERE id_producto='{row[1]}'"
                 cursor.execute(sql)
                 prod = cursor.fetchall()
                 equipo = devolver_equipo(prod[0][1])
@@ -153,12 +150,12 @@ def devolver_equipo(id):
         plan = {}
         accesorio = {}
         cursor = mysql.connection.cursor()
-        sql = "SELECT * FROM equipo where id_equipo='{0}'".format(id)
+        sql = f"SELECT * FROM equipo where id_equipo='{id}'"
         cursor.execute(sql)
         datos_equipo = cursor.fetchall()
         if datos_equipo[0][13] != None:
             id_plan = datos_equipo[0][13]
-            sql = "SELECT * FROM plan WHERE id_plan= '{0}'".format(id_plan)
+            sql = f"SELECT * FROM plan WHERE id_plan= '{id_plan}'"
             cursor.execute(sql)
             datos_plan = cursor.fetchall()
             plan = {'id_plan': datos_plan[0][0], 'nombre': datos_plan[
@@ -166,8 +163,7 @@ def devolver_equipo(id):
 
         if datos_equipo[0][14] != None:
             id_accesorio = datos_equipo[0][14]
-            sql = "SELECT * FROM accesorio WHERE id_accesorio= '{0}'".format(
-                id_accesorio)
+            sql = f"SELECT * FROM accesorio WHERE id_accesorio= '{id_accesorio}'"
             cursor.execute(sql)
             datos_accesorio = cursor.fetchall()
             accesorio = {'id_accesorio': datos_accesorio[0][0], 'nombre': datos_accesorio[0][1],
@@ -185,7 +181,7 @@ def devolver_oferta(id):
     try:
         if id != None:
             cursor = mysql.connection.cursor()
-            sql = "SELECT * FROM oferta WHERE id_oferta= '{0}'".format(id)
+            sql = f"SELECT * FROM oferta WHERE id_oferta= '{id}'"
             cursor.execute(sql)
             datos_oferta = cursor.fetchall()
             oferta = {'id_oferta': datos_oferta[0][0], 'nombre': datos_oferta[0][1],
