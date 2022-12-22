@@ -95,6 +95,19 @@ def devolver_equipojson(id):
         print(ex)
     return jsonify(equipo)
 
+def generar_dato_venta():
+    try:
+        cursor = mysql.connection.cursor()
+        monto = 230
+        id_vendedor = 1
+        id_cliente = 747
+        forma_pago = "efectivo"
+        sql = f"insert into venta(monto, fecha, id_vendedor, id_cliente, forma_pago) values ({monto},DATE(NOW()),{id_vendedor},{id_cliente},{forma_pago})"
+        cursor.execute(sql)
+        mysql.connection.commit()
+    except Exception as ex:
+        print(ex)
+    return "intento"
 
 @app.route('/ofertas/<id>', methods=['get'])
 def devolver_ofertajson(id):

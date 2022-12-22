@@ -79,7 +79,7 @@
                 </div>
                 <div class="botonesC">
                     <button class="btn-secondary" onclick="openForm('cotizacion')">Cotizar</button>
-                    <button class="btn-primary" onclick="openForm('popup')">Generar Venta</button>
+                    <button class="btn-primary" onclick="openForm('popup')" >Generar Venta</button>
                 </div>
             </div>
         </section>
@@ -219,7 +219,7 @@
                     <!-- formato de llenado de tabla -->
                     {%for producto in data_productos %}
                     <tr id={{producto.1}}>
-                        <th  style="width:50px">
+                        <th>
                             <div class="card-button">
                                 <a href="#" onclick="openForm('secciondetalles')" class="btn btn-secondary">👁‍</a>
                                 <a href="#" class="btn btn-primary"> + </a>

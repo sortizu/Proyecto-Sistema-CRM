@@ -159,6 +159,18 @@ th{
     text-align: center;
 }
 
+th button{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+tr{
+    border-collapse: collapse;
+    border-bottom: 2px solid #D1D1D1;
+}
+
 .carritotabla th:nth-child(2){
     width: 100px;
 }
@@ -167,17 +179,6 @@ th{
     width: 80px;
 }
 
-
-th button{
-    margin-top: 5px;
-    margin-bottom: 5px;
-    margin-left: 10px;
-    margin-right: 10px;
-}
-tr{
-    border-collapse: collapse;
-    border-bottom: 2px solid #D1D1D1;
-}
 .botonesC{
     width: 100%;
     text-align: right;
