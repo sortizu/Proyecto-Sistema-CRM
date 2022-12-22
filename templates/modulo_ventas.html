@@ -210,9 +210,6 @@
                     </div>
                 </div>
             </div>
-            <script>
-
-            </script>
             <div class="cuerpo-lista">
                 <table class="tabla-prod" id="tabla">
                     <tr>
@@ -227,8 +224,8 @@
                     <tr id={{producto.1}}>
                         <th>
                             <div class="card-button">
-                                <a href="#" onclick="openForm('secciondetalles')" class="btn btn-secondary">Detalles</a>
-                                <a href="#" class="btn btn-primary">Agregar</a>
+                                <a name="detalles" class="btn btn-secondary">Detalles</a>
+                                <a class="btn btn-primary">Agregar</a>
                             </div>
                         </th>
                         <th><label>{{producto.0}}</label>
@@ -286,7 +283,7 @@
                             <label>Descripción</label>
                             <p></p>
                             <label>Garantía</label>
-                            <p> meses</p>
+                            <p></p>
                         </div>
                     </div>
                 </div>
@@ -306,7 +303,7 @@
                                 <label>Nombre</label>
                                 <p></p>
                                 <label>Precio</label>
-                                <p>S/</p>
+                                <p></p>
                                 <label>Descripción</label>
                                 <p></p>
                             </div>
@@ -325,6 +322,8 @@
                         <div class="accordion-body">
                             <div class="descs">
                                 <label>Nombre</label>
+                                <p></p>
+                                <label>Precio</label>
                                 <p></p>
                                 <label>Descripción</label>
                                 <p></p>
@@ -381,22 +380,8 @@
         </section>
 
     </section>
+    <script src="../static/js/scripts.js"></script>
 </body>
-<script>
-    function openForm(id) {
-        document.getElementById(id).style.display = "block";
-    }
 
-    function closeForm(id) {
-        document.getElementById(id).style.display = "none";
-    }
-    function filtrarprecio() {
-        // let maximo = document.getElementById(maximo).value;
-        // let minimo = document.getElementById(minimo).value;
-        var filas = document.getElementById('tabla');
-        console.log(filas);
-    }
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 </html>

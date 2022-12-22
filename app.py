@@ -13,13 +13,13 @@ app.config['MYSQL_DB'] = 'crm_ventas'
 mysql = MySQL(app)
 
 
+# @app.route('/')
+# def index():
+#     return render_template('modulo_ventas.html')
+
+
 @app.route('/')
 def index():
-    return render_template('modulo_ventas.html')
-
-
-@app.route('/intento')
-def llenar_catalogo():
     try:
         cursor = mysql.connection.cursor()
 
@@ -64,6 +64,23 @@ def productosjson():
     return jsonify(productos)
 
 
+@app.route('/producto/<id>')
+def devolver_productojson(id):
+    try:
+        cursor = mysql.connection.cursor()
+        sql = "SELECT * FROM producto WHERE id_producto='{0}'".format(id)
+        cursor.execute(sql)
+        datos_producto = cursor.fetchall()
+        datos_equipo = devolver_equipo(datos_producto[0][1])
+        datos_oferta = devolver_oferta(datos_producto[0][2])
+        producto = {'idproducto': datos_producto[0][0], 'equipo': datos_equipo, 'oferta': datos_oferta, 'nombre': datos_producto[0][3],
+                    'precio': datos_producto[0][4], 'stock': datos_producto[0][5]}
+
+    except Exception as ex:
+        print(ex)
+    return jsonify(producto)
+
+
 @app.route('/equipo/<id>', methods=['get'])
 def devolver_equipojson(id):
     try:
@@ -91,7 +108,7 @@ def devolver_equipojson(id):
                          'precio': datos_accesorio[0][2], 'stock': datos_accesorio[0][3], 'descripcion': datos_accesorio[0][4]}
 
         equipo = {'id_equipo': datos_equipo[0][0], 'nombre': datos_equipo[0][1], 'memoria_ram': datos_equipo[0][2], 'memoria_interna': datos_equipo[0][3], 'pantalla': datos_equipo[0][4], 'camara_principal': datos_equipo[0][5], 'procesador': datos_equipo[0]
-                  [6], 'bateria': datos_equipo[0][7], 'color': datos_equipo[0][8], 'garantia': datos_equipo[0][9], 'precio': datos_equipo[0][10], 'stock': datos_equipo[0][11], 'descripcion': datos_equipo[0][12], 'plan': plan, 'accesorio': accesorio}
+                  [6], 'bateria': datos_equipo[0][7], 'color': datos_equipo[0][8], 'garantia': datos_equipo[0][9], 'precio': datos_equipo[0][10], 'stock': datos_equipo[0][11], 'descripcion': datos_equipo[0][12], 'plan': plan, 'accesorio': accesorio, 'link': datos_equipo[0][15]}
     except Exception as ex:
         print(ex)
     return jsonify(equipo)
@@ -174,7 +191,7 @@ def devolver_equipo(id):
                          'precio': datos_accesorio[0][2], 'stock': datos_accesorio[0][3], 'descripcion': datos_accesorio[0][4]}
 
         equipo = {'id_equipo': datos_equipo[0][0], 'nombre': datos_equipo[0][1], 'memoria_ram': datos_equipo[0][2], 'memoria_interna': datos_equipo[0][3], 'pantalla': datos_equipo[0][4], 'camara_principal': datos_equipo[0][5], 'procesador': datos_equipo[0]
-                  [6], 'bateria': datos_equipo[0][7], 'color': datos_equipo[0][8], 'garantia': datos_equipo[0][9], 'precio': datos_equipo[0][10], 'stock': datos_equipo[0][11], 'descripcion': datos_equipo[0][12], 'plan': plan, 'accesorio': accesorio}
+                  [6], 'bateria': datos_equipo[0][7], 'color': datos_equipo[0][8], 'garantia': datos_equipo[0][9], 'precio': datos_equipo[0][10], 'stock': datos_equipo[0][11], 'descripcion': datos_equipo[0][12], 'plan': plan, 'accesorio': accesorio, 'link': datos_equipo[0][15]}
     except Exception as ex:
         print(ex)
     return equipo
