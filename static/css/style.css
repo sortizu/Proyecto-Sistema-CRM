@@ -221,8 +221,12 @@ width: 100%;
 =======
 /*ESTILOS CARRITO*/
 .seccioncarrito{
+<<<<<<< HEAD
 >>>>>>> 72e6e77b2992d36a77959e133b7d2b6ff0be9ae4
     width: 50%;
+=======
+    width: 40%;
+>>>>>>> 130b98c69ed398c8599ea3ff25d714e50ebad8b6
     margin-top: 2%;
 }
 .contenidoCar{
@@ -350,7 +354,7 @@ tr{
 }
 /*ESTILOS LISTA*/
 .seccionlista{
-    width: 50%;
+    width: 60%;
     margin-top: 2%;
 }
 .cuerpo-vis{
@@ -419,6 +423,11 @@ text-align: center;
     background-color: #D1D1D1;
     width: 100%;
     text-align: center;
+}
+.opciondin{
+    width: 100%;
+    border: none;
+    
 }
 /* .accordion-body{
     background-color: #D1D1D1;
@@ -494,16 +503,16 @@ text-align: center;
  width:50%;
  height: 70%;
  position: fixed;
- top: 0;
+ top: 15%;
  bottom: 0;
  right: 0;
- left: 30%;
+ left: 25%;
 border: 3px solid #f1f1f1;
 z-index: 120;
 overflow-y: scroll;
-    background-color: #f1f1f1;
-    
- 
+background-color: #f1f1f1;
+border: #3E1C6C 2px solid;
+    padding: 2%;
 }
 /*DETALLES COTIZACION*/
 #cotizacion{
@@ -511,14 +520,33 @@ overflow-y: scroll;
     width:50%;
     height: 70%;
     position: fixed;
-    top: 0;
+    top: 15%;
     bottom: 0;
     right: 0;
-    left: 0;
+    left: 25%;
     border: 3px solid #f1f1f1;
     z-index: 900;
     overflow-y: scroll;
     background-color: #f1f1f1;
+<<<<<<< HEAD
     
 >>>>>>> 72e6e77b2992d36a77959e133b7d2b6ff0be9ae4
+=======
+    border: #3E1C6C 2px solid;
+    padding: 2%;
+}
+.pdf{
+    width: 100%;
+    height: 90%;
+    display: flex;
+    justify-content: center;
+    padding-top: 3%;
+    padding-bottom: 3%;
+}
+.btnspdf{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:30px;
+>>>>>>> 130b98c69ed398c8599ea3ff25d714e50ebad8b6
 }
