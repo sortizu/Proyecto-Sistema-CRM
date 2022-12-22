@@ -154,10 +154,20 @@ header button{
   border-top: 2px solid #D1D1D1;
   margin-top: 5%;
 }
+
 th{
     text-align: center;
-    
 }
+
+.carritotabla th:nth-child(2){
+    width: 100px;
+}
+
+.carritotabla th:nth-child(3), th:nth-child(4){
+    width: 80px;
+}
+
+
 th button{
     margin-top: 5px;
     margin-bottom: 5px;
@@ -275,15 +285,15 @@ tr{
     width: 98%;
 }
 
-th:first-child{
+.tabla-prod th:first-child{
     width: 120px;
 }
 
-th:nth-child(3){
+.tabla-prod th:nth-child(3){
     width: 40px;
 }
 
-th:nth-child(4), th:nth-child(5){
+.tabla-prod th:nth-child(4), th:nth-child(5){
     width: 80px;
 }
 
