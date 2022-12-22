@@ -47,12 +47,8 @@ def llenar_catalogo():
     return render_template('modulo_ventas.html', data_productos=productos, data_ram=rams, data_procesador=procesadores, data_camara=camaras, data_plan=planes)
 
 
-def query_string():
-    print(request)
-
-
-@app.route('/productos')
-def listar_productos():
+@app.route('/productos', methods=['get'])
+def productosjson():
     try:
         cursor = mysql.connection.cursor()
         sql = "SELECT * FROM producto"
@@ -66,6 +62,90 @@ def listar_productos():
     except Exception as ex:
         print(ex)
     return jsonify(productos)
+
+
+@app.route('/equipo/<id>', methods=['get'])
+def devolver_equipojson(id):
+    try:
+        plan = {}
+        accesorio = {}
+        cursor = mysql.connection.cursor()
+        sql = "SELECT * FROM equipo where id_equipo='{0}'".format(id)
+        cursor.execute(sql)
+        datos_equipo = cursor.fetchall()
+        if datos_equipo[0][13] != None:
+            id_plan = datos_equipo[0][13]
+            sql = "SELECT * FROM plan WHERE id_plan= '{0}'".format(id_plan)
+            cursor.execute(sql)
+            datos_plan = cursor.fetchall()
+            plan = {'id_plan': datos_plan[0][0], 'nombre': datos_plan[
+                0][1], 'precio': datos_plan[0][2], 'descripcion': datos_plan[0][3]}
+
+        if datos_equipo[0][14] != None:
+            id_accesorio = datos_equipo[0][14]
+            sql = "SELECT * FROM accesorio WHERE id_accesorio= '{0}'".format(
+                id_accesorio)
+            cursor.execute(sql)
+            datos_accesorio = cursor.fetchall()
+            accesorio = {'id_accesorio': datos_accesorio[0][0], 'nombre': datos_accesorio[0][1],
+                         'precio': datos_accesorio[0][2], 'stock': datos_accesorio[0][3], 'descripcion': datos_accesorio[0][4]}
+
+        equipo = {'id_equipo': datos_equipo[0][0], 'nombre': datos_equipo[0][1], 'memoria_ram': datos_equipo[0][2], 'memoria_interna': datos_equipo[0][3], 'pantalla': datos_equipo[0][4], 'camara_principal': datos_equipo[0][5], 'procesador': datos_equipo[0]
+                  [6], 'bateria': datos_equipo[0][7], 'color': datos_equipo[0][8], 'garantia': datos_equipo[0][9], 'precio': datos_equipo[0][10], 'stock': datos_equipo[0][11], 'descripcion': datos_equipo[0][12], 'plan': plan, 'accesorio': accesorio}
+    except Exception as ex:
+        print(ex)
+    return jsonify(equipo)
+
+
+@app.route('/ofertas/<id>', methods=['get'])
+def devolver_ofertajson(id):
+    oferta = {}
+    try:
+        if id != None:
+            cursor = mysql.connection.cursor()
+            sql = "SELECT * FROM oferta WHERE id_oferta= '{0}'".format(id)
+            cursor.execute(sql)
+            datos_oferta = cursor.fetchall()
+            oferta = {'id_oferta': datos_oferta[0][0], 'nombre': datos_oferta[0][1],
+                      'descuento': datos_oferta[0][2], 'descripcion': datos_oferta[0][3]}
+    except Exception as ex:
+        print(ex)
+    return jsonify(oferta)
+
+
+@app.route('/ventas/<id>', methods=['GET'])
+def entregar_ventas(id):
+    try:
+        cursor = mysql.connection.cursor()
+        sql = "SELECT * FROM venta where id_cliente='{0}'".format(id)
+        cursor.execute(sql)
+        datos_venta = cursor.fetchall()
+        ventas = []
+        for fila in datos_venta:
+            sql = "SELECT * FROM detalle_venta WHERE fk_detventa_venta='{0}'".format(
+                fila[0])
+            cursor.execute(sql)
+            detalles_venta = cursor.fetchall()
+            detalles = []
+            for row in detalles_venta:
+                sql = "SELECT * FROM producto WHERE id_producto='{0}'".format(
+                    row[1])
+                cursor.execute(sql)
+                prod = cursor.fetchall()
+                equipo = devolver_equipo(prod[0][1])
+                oferta = devolver_oferta(prod[0][2])
+                producto = {'id_producto': prod[0][0], 'equipo': equipo, 'oferta': oferta, 'nombre': prod[0]
+                            [3], 'precio': prod[0][4], 'stock': prod[0][5], }
+                detalle = {'id_detalle_venta': row[0], 'producto': producto,
+                           'id_venta': row[2], 'cantidad': row[3], 'total': row[4]}
+                detalles.append(detalle)
+            venta = {'id_venta': fila[0], 'monto': fila[1], 'fecha': fila[2], 'id_vendedor': fila[3],
+                     'id_cliente': fila[4], 'forma_pago': fila[5], 'detalles_venta': detalles}
+            ventas.append(venta)
+        print(datos_venta)
+    except Exception as ex:
+        print(ex)
+    return jsonify(ventas)
 
 
 def devolver_equipo(id):
@@ -113,41 +193,6 @@ def devolver_oferta(id):
     except Exception as ex:
         print(ex)
     return oferta
-
-
-@app.route('/ventas/<id>', methods=['GET'])
-def entregar_ventas(id):
-    try:
-        cursor = mysql.connection.cursor()
-        sql = "SELECT * FROM venta where id_cliente='{0}'".format(id)
-        cursor.execute(sql)
-        datos_venta = cursor.fetchall()
-        ventas = []
-        for fila in datos_venta:
-            sql = "SELECT * FROM detalle_venta WHERE fk_detventa_venta='{0}'".format(
-                fila[0])
-            cursor.execute(sql)
-            detalles_venta = cursor.fetchall()
-            detalles = []
-            for row in detalles_venta:
-                sql = "SELECT * FROM producto WHERE id_producto='{0}'".format(
-                    row[1])
-                cursor.execute(sql)
-                prod = cursor.fetchall()
-                equipo = devolver_equipo(prod[0][1])
-                oferta = devolver_oferta(prod[0][2])
-                producto = {'id_producto': prod[0][0], 'equipo': equipo, 'oferta': oferta, 'nombre': prod[0]
-                            [3], 'precio': prod[0][4], 'stock': prod[0][5], }
-                detalle = {'id_detalle_venta': row[0], 'producto': producto,
-                           'id_venta': row[2], 'cantidad': row[3], 'total': row[4]}
-                detalles.append(detalle)
-            venta = {'id_venta': fila[0], 'monto': fila[1], 'fecha': fila[2], 'id_vendedor': fila[3],
-                     'id_cliente': fila[4], 'forma_pago': fila[5], 'detalles_venta': detalles}
-            ventas.append(venta)
-        print(datos_venta)
-    except Exception as ex:
-        print(ex)
-    return jsonify(ventas)
 
 
 if __name__ == '__main__':
