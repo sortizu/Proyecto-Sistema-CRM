@@ -44,19 +44,84 @@ def llenar_catalogo(id):
         cursor.execute(sql)
         procesadores = cursor.fetchall()
 
-#       sql = "SELECT DISTINCT camara_principal FROM equipo order by camara_principal"
-#       cursor.execute(sql)
-#       camaras = cursor.fetchall()
-#        sql = "SELECT DISTINCT memoria_ram FROM equipo order by memoria_ram"
-#        cursor.execute(sql)
-#        rams = cursor.fetchall()
-
         sql = "SELECT id_plan, nombre FROM plan order by nombre"
         cursor.execute(sql)
         planes = cursor.fetchall()
     except Exception as ex:
         print(ex)
     return render_template('modulo_ventas.html', data_productos=productos, data_procesador=procesadores, data_plan=planes)
+
+
+@app.route('/boleta/<id>')
+def llenar_boleta(id):
+    try:
+        cursor = mysql.connection.cursor()
+
+        sql = f"""select producto.nombre, cantidad, precio, concat(descuento*100,'%'), total
+                from boleta, venta, detalle_venta, producto, oferta
+                where id_boleta = {id}
+                    and fk_boleta_venta = id_venta
+                    and id_venta = fk_detventa_venta
+                    and fk_detventa_producto = id_producto
+                    and fk_producto_oferta = id_oferta"""
+
+        cursor.execute(sql)
+
+        detalles_venta = cursor.fetchall()
+
+        sql = f"""select id_boleta, monto from boleta, venta where id_boleta = {id} and fk_boleta_venta = id_venta"""
+
+        cursor.execute(sql)
+
+        detalle_monto = cursor.fetchone()
+
+        sql = f"""select EXTRACT(DAY FROM fecha), EXTRACT(month FROM fecha), EXTRACT(year FROM fecha)
+                from boleta where id_boleta = {id}"""
+
+        cursor.execute(sql)
+
+        boleta_fecha = cursor.fetchone()
+
+    except Exception as ex:
+        print(ex)
+    return render_template('boleta.html', data_detalles_venta=detalles_venta, data_detalle_monto=detalle_monto, data_boleta_fecha=boleta_fecha)
+
+
+
+@app.route('/cotizacion/<id>')
+def llenar_cotizacion(id):
+    try:
+        cursor = mysql.connection.cursor()
+
+        sql = f"""select producto.nombre, cantidad, precio, concat(descuento*100,'%'), total
+                from boleta, venta, detalle_venta, producto, oferta
+                where id_boleta = {id}
+                    and fk_boleta_venta = id_venta
+                    and id_venta = fk_detventa_venta
+                    and fk_detventa_producto = id_producto
+                    and fk_producto_oferta = id_oferta"""
+
+        cursor.execute(sql)
+
+        detalles_venta = cursor.fetchall()
+
+        sql = f"""select id_boleta, monto from boleta, venta where id_boleta = {id} and fk_boleta_venta = id_venta"""
+
+        cursor.execute(sql)
+
+        detalle_monto = cursor.fetchone()
+
+        sql = f"""select EXTRACT(DAY FROM CURDATE()), EXTRACT(month FROM CURDATE()), EXTRACT(year FROM CURDATE())
+                from boleta where id_boleta = {id}"""
+
+        cursor.execute(sql)
+
+        boleta_fecha = cursor.fetchone()
+
+    except Exception as ex:
+        print(ex)
+    return render_template('cotizacion.html', data_detalles_venta=detalles_venta, data_detalle_monto=detalle_monto, data_boleta_fecha=boleta_fecha)
+
 
 
 @app.route('/productos', methods=['get'])
@@ -76,7 +141,6 @@ def productosjson():
     return jsonify(productos)
 
 
-<<<<<<< HEAD
 @app.route('/consultaclientes/<id_producto>')
 def devolver_clienteproductojson(id_producto):
     try:
@@ -96,7 +160,7 @@ def devolver_clienteproductojson(id_producto):
 def devolver_prodxclientejson(id_cliente,fecha_inicio,fecha_fin):
     try:
         cursor = mysql.connection.cursor()
-        sql = f"SELECT id_venta, cantidad, total, id_vendedor, fecha FROM venta, detalle_venta where id_cliente='{id_cliente}' and id_venta = fk_detventa_venta and fecha >= '{fecha_inicio}' and fecha <= '{fecha_fin}'"
+        sql = f"SELECT id_venta, cantidad, total, id_vendedor, fecha FROM venta, detalle_venta where id_cliente={id_cliente} and id_venta = fk_detventa_venta and fecha >= '{fecha_inicio}' and fecha <= '{fecha_fin}'"
         cursor.execute(sql)
         datos = cursor.fetchall()
         prodsxcliente = []
@@ -108,8 +172,6 @@ def devolver_prodxclientejson(id_cliente,fecha_inicio,fecha_fin):
         print(ex)
     return jsonify(prodsxcliente)
 
-=======
->>>>>>> 8d8d041179e66f79769b5a343d15acc1d018a692
 @app.route('/producto/<id>')
 def devolver_productojson(id):
     try:
@@ -125,10 +187,6 @@ def devolver_productojson(id):
     except Exception as ex:
         print(ex)
     return jsonify(producto)
-
-
-
-
 
 
 @app.route('/equipo/<id>', methods=['get'])
@@ -162,7 +220,6 @@ def devolver_equipojson(id):
         print(ex)
     return jsonify(equipo)
 
-
 def generar_dbventa():
     try:
         cursor = mysql.connection.cursor()
@@ -176,7 +233,6 @@ def generar_dbventa():
     except Exception as ex:
         print(ex)
     return "intento"
-
 
 @app.route('/ofertas/<id>', methods=['get'])
 def devolver_ofertajson(id):
