@@ -76,6 +76,7 @@ def productosjson():
     return jsonify(productos)
 
 
+<<<<<<< HEAD
 @app.route('/consultaclientes/<id_producto>')
 def devolver_clienteproductojson(id_producto):
     try:
@@ -107,6 +108,8 @@ def devolver_prodxclientejson(id_cliente,fecha_inicio,fecha_fin):
         print(ex)
     return jsonify(prodsxcliente)
 
+=======
+>>>>>>> 8d8d041179e66f79769b5a343d15acc1d018a692
 @app.route('/producto/<id>')
 def devolver_productojson(id):
     try:
@@ -159,6 +162,7 @@ def devolver_equipojson(id):
         print(ex)
     return jsonify(equipo)
 
+
 def generar_dbventa():
     try:
         cursor = mysql.connection.cursor()
@@ -172,6 +176,7 @@ def generar_dbventa():
     except Exception as ex:
         print(ex)
     return "intento"
+
 
 @app.route('/ofertas/<id>', methods=['get'])
 def devolver_ofertajson(id):

@@ -1,13 +1,72 @@
+
 document.addEventListener("click", e => {
     if (e.target.getAttribute("name") == "detalles") {
-        tr = e.target.parentElement.parentElement;
-        th = tr.parentElement;
+        var tr = e.target.parentElement.parentElement;
+        var th = tr.parentElement;
         consultaDetalles(th.getAttribute('id'));
-
+    }
+    if (e.target.getAttribute("name") == "agregar") {
+        var tr = e.target.parentElement.parentElement;
+        var th = tr.parentElement;
+        agregarCarrito(th.getAttribute('id'));
     }
 
 })
+function agregarCarrito(id) {
+    url = '/producto/' + id;
+    xhr = new XMLHttpRequest();
+    xhr.open('GET', url);
+    xhr.responseType = 'json';
+    xhr.send();
+    xhr.onload = function () {
+        respuesta = xhr.response;
+        llenarCarrito(respuesta);
+    }
+}
+function llenarCarrito(respuesta) {
+    const carrito = document.getElementById('carrito');
+    carrito.innerHTML += '<tr id="fila' + respuesta.idproducto + '"><th style="width:10%;">' + respuesta.idproducto + '</th><th><label name="producto">' + respuesta.nombre + '</label></th><th><button onclick="restarCantidad(fila' + respuesta.idproducto + ')" class="btn-secondary" name="cantidad"> - </button><label>1</label><button onclick="sumarCantidad(fila' + respuesta.idproducto + ')" class="btn-secondary">+</button></th><th><label name="unidad">' + respuesta.precio + '</label></th><th><label name="total">' + respuesta.precio + '</label></th></tr>';
+    calcularImporteSub();
+}
+function sumarCantidad(id) {
+    cantidad = id.children[2].children[1].textContent;
+    cantidad = parseInt(cantidad);
+    id.children[2].children[1].textContent = cantidad + 1;
+    calcularTotal(id);
+}
+function restarCantidad(id) {
+    cantidad = id.children[2].children[1].textContent;
+    cantidad = parseInt(cantidad);
+    if (cantidad == 1) {
+        id.remove();
+        calcularImporteSub();
+    } else {
+        id.children[2].children[1].textContent = cantidad - 1;
+        calcularTotal(id);
+    }
+}
+function calcularTotal(id) {
+    cantidad = id.children[2].children[1].textContent;
+    cantidad = parseFloat(cantidad);
+    precio = id.children[3].children[0].textContent;
+    precio = parseFloat(precio);
+    total = precio * cantidad;
+    id.children[4].children[0].textContent = total;
+    calcularImporteSub();
+}
+function calcularImporteSub() {
+    let total = 0;
+    tabla = document.getElementById('carrito');
+    hijos = tabla.children.length;
+    for (i = 1; i < hijos; i++) {
+        precio = parseFloat(tabla.children[i].children[0].children[4].children[0].textContent);
+        if (precio != null) {
+            total = total + precio;
+        }
+    }
+    console.log(total);
 
+}
 function consultaDetalles(id) {
     url = '/producto/' + id;
     xhr = new XMLHttpRequest();
@@ -20,7 +79,6 @@ function consultaDetalles(id) {
     }
 }
 function llenarDetalles(respuesta) {
-    console.log(respuesta);
     detalles = document.getElementById('secciondetalles');
     detalles.style.display = 'block';
     detalles.children[0].children[2].textContent = 'S/.' + respuesta.precio;
@@ -56,4 +114,5 @@ function filtrarprecio() {
     // let maximo = document.getElementById(maximo).value;
     // let minimo = document.getElementById(minimo).value;
     var filas = document.getElementById('tabla');
-    console.log(filas);}
+    console.log(filas);
+}
