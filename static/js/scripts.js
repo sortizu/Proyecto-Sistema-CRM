@@ -1,4 +1,7 @@
+function llenarCatalogo() {
 
+}
+consultaProductos();
 document.addEventListener("click", e => {
     if (e.target.getAttribute("name") == "detalles") {
         var tr = e.target.parentElement.parentElement;
@@ -25,6 +28,14 @@ function agregarCarrito(id) {
 }
 function llenarCarrito(respuesta) {
     const carrito = document.getElementById('carrito');
+    for (i = 1; i < carrito.children.length; i++) {
+        idfil = carrito.children[i].children[0].children[0].textContent;
+        if (respuesta.idproducto == idfil) {
+            tr = carrito.children[i].children[0];
+            sumarCantidad(tr);
+            return;
+        }
+    }
     carrito.innerHTML += '<tr id="fila' + respuesta.idproducto + '"><th style="width:10%;">' + respuesta.idproducto + '</th><th><label name="producto">' + respuesta.nombre + '</label></th><th><button onclick="restarCantidad(fila' + respuesta.idproducto + ')" class="btn-secondary" name="cantidad"> - </button><label>1</label><button onclick="sumarCantidad(fila' + respuesta.idproducto + ')" class="btn-secondary">+</button></th><th><label name="unidad">' + respuesta.precio + '</label></th><th><label name="total">' + respuesta.precio + '</label></th></tr>';
     calcularImporteSub();
 }
@@ -38,7 +49,9 @@ function restarCantidad(id) {
     cantidad = id.children[2].children[1].textContent;
     cantidad = parseInt(cantidad);
     if (cantidad == 1) {
-        id.remove();
+        tabla = document.getElementById('carrito');
+        tbody = id.parentElement;
+        tabla.removeChild(tbody);
         calcularImporteSub();
     } else {
         id.children[2].children[1].textContent = cantidad - 1;
@@ -57,6 +70,7 @@ function calcularTotal(id) {
 function calcularImporteSub() {
     let total = 0;
     tabla = document.getElementById('carrito');
+    importe = tabla.nextElementSibling;
     hijos = tabla.children.length;
     for (i = 1; i < hijos; i++) {
         precio = parseFloat(tabla.children[i].children[0].children[4].children[0].textContent);
@@ -64,7 +78,11 @@ function calcularImporteSub() {
             total = total + precio;
         }
     }
-    console.log(total);
+    total = parseInt(total);
+    importe.children[1].textContent = total;
+    descuento = importe.children[3].textContent;
+    descuento = parseInt(descuento);
+    importe.children[5].textContent = total - descuento;
 
 }
 function consultaDetalles(id) {
@@ -75,6 +93,7 @@ function consultaDetalles(id) {
     xhr.send();
     xhr.onload = function () {
         respuesta = xhr.response;
+        console.log(typeof (respuesta));
         llenarDetalles(respuesta);
     }
 }
@@ -102,6 +121,17 @@ function llenarDetalles(respuesta) {
     detallesOfer.children[2].textContent = respuesta.oferta.descuento;
     detallesOfer.children[4].textContent = respuesta.oferta.descripcion;
 
+}
+function consultaProductos() {
+    url = '/productos';
+    xhr = new XMLHttpRequest();
+    xhr.open('GET', url);
+    xhr.responseType = 'json';
+    xhr.send();
+    xhr.onload = function () {
+        respuesta = xhr.response;
+        console.log(respuesta);
+    }
 }
 function openForm(id) {
     document.getElementById(id).style.display = "block";
