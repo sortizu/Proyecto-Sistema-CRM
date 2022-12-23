@@ -14,44 +14,52 @@ app.secret_key = 'mysecretkey'
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = '50bb11b76'
+app.config['MYSQL_PASSWORD'] = 'root'
 app.config['MYSQL_DB'] = 'crm_ventas'
 
 mysql = MySQL(app)
 
 
-# @app.route('/')
-# def index():
-#     return render_template('modulo_ventas.html')
-
-
 @app.route('/')
-def llenar_catalogo():
+def index():
+    return redirect(url_for('llenar_catalogo', id=1))
+
+
+@app.route('/catalogo')
+def index2():
+    return redirect(url_for('llenar_catalogo', id=1))
+
+
+@app.route('/catalogo/<id>')
+def llenar_catalogo(id):
     try:
         cursor = mysql.connection.cursor()
 
-        sql = "SELECT nombre, id_producto, stock, precio FROM producto order by id_producto limit 10"
+        i = int(id)
+        pos = 10*(i-1)+1
+
+        sql = f"SELECT nombre,id_producto, stock, precio FROM producto where id_producto >= '{pos}' order by id_producto limit 10"
         cursor.execute(sql)
         productos = cursor.fetchall()
 
-        sql = "SELECT DISTINCT memoria_ram FROM equipo order by memoria_ram"
-        cursor.execute(sql)
-        rams = cursor.fetchall()
+#        sql = "SELECT DISTINCT memoria_ram FROM equipo order by memoria_ram"
+#        cursor.execute(sql)
+#        rams = cursor.fetchall()
 
         sql = "SELECT DISTINCT procesador FROM equipo order by procesador"
         cursor.execute(sql)
         procesadores = cursor.fetchall()
 
-        sql = "SELECT DISTINCT camara_principal FROM equipo order by camara_principal"
-        cursor.execute(sql)
-        camaras = cursor.fetchall()
+#       sql = "SELECT DISTINCT camara_principal FROM equipo order by camara_principal"
+#       cursor.execute(sql)
+#       camaras = cursor.fetchall()
 
         sql = "SELECT id_plan, nombre FROM plan order by nombre"
         cursor.execute(sql)
         planes = cursor.fetchall()
     except Exception as ex:
         print(ex)
-    return render_template('modulo_ventas.html', data_productos=productos, data_ram=rams, data_procesador=procesadores, data_camara=camaras, data_plan=planes)
+    return render_template('modulo_ventas.html', data_productos=productos, data_procesador=procesadores, data_plan=planes)
 
 
 @app.route('/productos', methods=['get'])
