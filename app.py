@@ -6,10 +6,17 @@ app = Flask(__name__)
 app.secret_key = 'mysecretkey'
 
 # Conexion MySQL
+# app.config['MYSQL_HOST'] = 'localhost'
+# app.config['MYSQL_USER'] = 'root'
+# app.config['MYSQL_PASSWORD'] = 'root'
+# app.config['MYSQL_DB'] = 'crm_ventas'
+# credenciales fabricio
+
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'root'
+app.config['MYSQL_PASSWORD'] = '50bb11b76'
 app.config['MYSQL_DB'] = 'crm_ventas'
+
 mysql = MySQL(app)
 
 
