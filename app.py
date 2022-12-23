@@ -70,6 +70,7 @@ def productosjson():
         print(ex)
     return jsonify(productos)
 
+
 @app.route('/producto/<id>')
 def devolver_productojson(id):
     try:
@@ -118,6 +119,7 @@ def devolver_equipojson(id):
         print(ex)
     return jsonify(equipo)
 
+
 def generar_dbventa():
     try:
         cursor = mysql.connection.cursor()
@@ -131,6 +133,7 @@ def generar_dbventa():
     except Exception as ex:
         print(ex)
     return "intento"
+
 
 @app.route('/ofertas/<id>', methods=['get'])
 def devolver_ofertajson(id):
