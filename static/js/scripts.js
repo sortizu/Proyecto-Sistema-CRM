@@ -56,5 +56,4 @@ function filtrarprecio() {
     // let maximo = document.getElementById(maximo).value;
     // let minimo = document.getElementById(minimo).value;
     var filas = document.getElementById('tabla');
-    console.log(filas);
-}
+    console.log(filas);}

@@ -103,16 +103,20 @@
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseOne-One" aria-expanded="false"
                                         aria-controls="collapseOne-One">
-                                        <h3>RAM</h3>
+                                        <h3>RAM [hasta 12GB]</h3>
                                     </button>
                                 </h2>
                                 <div id="collapseOne-One" class="accordion-collapse collapse"
                                     aria-labelledby="headingOne-One" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
                                         <button class="opciondin" value="todos">TODOS</button>
-                                        {%for memoria in data_ram %}
-                                        <button class="opciondin" value={{memoria.0}}>{{memoria.0}} GB</button>
-                                        {% endfor %}
+                                        <label>Mínimo - Máximo</label>
+                                        <br>
+                                        <input id="minram" type="text">
+                                        <label> - </label>
+                                        <input id="maxram" type="text">
+                                        <br>
+                                        <button class="btn-primary" onclick="filtrarram()">Filtrar</button>
                                     </div>
                                 </div>
                             </div>
@@ -140,15 +144,20 @@
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseOne-Three" aria-expanded="false"
                                         aria-controls="collapseOne-Three">
-                                        <h3>CAMARA</h3>
+                                        <h3>CÁMARA [hasta 108px]</h3>
                                     </button>
                                 </h2>
                                 <div id="collapseOne-Three" class="accordion-collapse collapse"
                                     aria-labelledby="headingOne-Three" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        {%for camara in data_camara %}
-                                        <button class="opciondin" value={{camara.0}}>{{camara.0}} Pixeles</button>
-                                        {% endfor %}
+                                        <button class="opciondin" value="todos">TODOS</button>
+                                        <label>Mínimo - Máximo</label>
+                                        <br>
+                                        <input id="mincamara" type="text">
+                                        <label> - </label>
+                                        <input id="maxcamara" type="text">
+                                        <br>
+                                        <button class="btn-primary" onclick="filtrarcamara()">Filtrar</button>
                                     </div>
                                 </div>
                             </div>
@@ -164,11 +173,12 @@
                                 <div id="collapseOne-Four" class="accordion-collapse collapse"
                                     aria-labelledby="headingOne-Four" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        <label>Maximo</label>
-                                        <input id="maximo" type="text">
+                                        <button class="opciondin" value="todos">TODOS</button>
+                                        <label>Mínimo - Máximo</label>
                                         <br>
-                                        <label>Minimo</label>
-                                        <input id="minimo" type="text">
+                                        <input id="minprecio" type="text">
+                                        <label> - </label>
+                                        <input id="maxprecio" type="text">
                                         <br>
                                         <button class="btn-primary" onclick="filtrarprecio()">Filtrar</button>
                                     </div>
@@ -224,7 +234,7 @@
                     <tr id={{producto.1}}>
                         <th>
                             <div class="card-button">
-                                <a name="detalles" class="btn btn-secondary">Detalles</a>
+                                <a name="detalles" class="btn btn-secondary">👁‍</a>
                                 <a class="btn btn-primary">+</a>
                             </div>
                         </th>
@@ -269,13 +279,14 @@
                 <h2 class="accordion-header" id="panelsStayOpen-headingOne">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
                         data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                        <h4>DETALLES DE EQUIPO</h4>
+                        <h4>EQUIPO</h4>
                     </button>
                 </h2>
                 <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                     data-bs-parent="#accordionExample">
+                    
                     <div class="accordion-body">
-                        <div class="foto"><img title="foto" src="#" height="300"></div>
+                        <div class="foto"><img title="foto" src="#"></div>
                         <div class="descs">
                             <label>Nombre</label>
                             <p></p>
@@ -292,10 +303,10 @@
                     <h2 class="accordion-header" id="headingTwo">
                         <button class="accordion-button" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            <h4>DETALLES DE PLAN</h4>
+                            <h4>PLAN</h4>
                         </button>
                     </h2>
-                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                    <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo"
                         data-bs-parent="#accordionExample">
                         <div class="accordion-body">
                             <div class="descs">
@@ -313,10 +324,10 @@
                     <h2 class="accordion-header" id="headingThree">
                         <button class="accordion-button" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            <h4>DETALLES DE ACCESORIO</h4>
+                            <h4>ACCESORIO</h4>
                         </button>
                     </h2>
-                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                    <div id="collapseThree" class="accordion-collapse collapse show" aria-labelledby="headingThree"
                         data-bs-parent="#accordionExample">
                         <div class="accordion-body">
                             <div class="descs">
@@ -334,10 +345,10 @@
                     <h2 class="accordion-header" id="headingFive">
                         <button class="accordion-button" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                            <h4>DETALLES DE OFERTA</h4>
+                            <h4>OFERTA</h4>
                         </button>
                     </h2>
-                    <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive"
+                    <div id="collapseFive" class="accordion-collapse collapse show" aria-labelledby="headingFive"
                         data-bs-parent="#accordionExample">
                         <div class="accordion-body">
                             <div class="descs">

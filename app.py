@@ -19,27 +19,27 @@ mysql = MySQL(app)
 
 
 @app.route('/')
-def index():
+def llenar_catalogo():
     try:
         cursor = mysql.connection.cursor()
 
-        sql = "SELECT nombre, id_producto, stock, precio FROM producto limit 10"
+        sql = "SELECT nombre, id_producto, stock, precio FROM producto order by id_producto limit 10"
         cursor.execute(sql)
         productos = cursor.fetchall()
 
-        sql = "SELECT DISTINCT memoria_ram FROM equipo"
+        sql = "SELECT DISTINCT memoria_ram FROM equipo order by memoria_ram"
         cursor.execute(sql)
         rams = cursor.fetchall()
 
-        sql = "SELECT DISTINCT procesador FROM equipo"
+        sql = "SELECT DISTINCT procesador FROM equipo order by procesador"
         cursor.execute(sql)
         procesadores = cursor.fetchall()
 
-        sql = "SELECT DISTINCT camara_principal FROM equipo"
+        sql = "SELECT DISTINCT camara_principal FROM equipo order by camara_principal"
         cursor.execute(sql)
         camaras = cursor.fetchall()
 
-        sql = "SELECT id_plan, nombre FROM plan"
+        sql = "SELECT id_plan, nombre FROM plan order by nombre"
         cursor.execute(sql)
         planes = cursor.fetchall()
     except Exception as ex:
@@ -63,12 +63,11 @@ def productosjson():
         print(ex)
     return jsonify(productos)
 
-
 @app.route('/producto/<id>')
 def devolver_productojson(id):
     try:
         cursor = mysql.connection.cursor()
-        sql = "SELECT * FROM producto WHERE id_producto='{0}'".format(id)
+        sql = f"SELECT * FROM producto WHERE id_producto='{id}'"
         cursor.execute(sql)
         datos_producto = cursor.fetchall()
         datos_equipo = devolver_equipo(datos_producto[0][1])
@@ -107,13 +106,12 @@ def devolver_equipojson(id):
                          'precio': datos_accesorio[0][2], 'stock': datos_accesorio[0][3], 'descripcion': datos_accesorio[0][4]}
 
         equipo = {'id_equipo': datos_equipo[0][0], 'nombre': datos_equipo[0][1], 'memoria_ram': datos_equipo[0][2], 'memoria_interna': datos_equipo[0][3], 'pantalla': datos_equipo[0][4], 'camara_principal': datos_equipo[0][5], 'procesador': datos_equipo[0]
-                  [6], 'bateria': datos_equipo[0][7], 'color': datos_equipo[0][8], 'garantia': datos_equipo[0][9], 'precio': datos_equipo[0][10], 'stock': datos_equipo[0][11], 'descripcion': datos_equipo[0][12], 'plan': plan, 'accesorio': accesorio, 'link': datos_equipo[0][15]}
+                  [6], 'bateria': datos_equipo[0][7], 'color': datos_equipo[0][8], 'garantia': datos_equipo[0][9], 'precio': datos_equipo[0][10], 'stock': datos_equipo[0][11], 'descripcion': datos_equipo[0][12], 'plan': plan, 'accesorio': accesorio}
     except Exception as ex:
         print(ex)
     return jsonify(equipo)
 
-
-def generar_dato_venta():
+def generar_dbventa():
     try:
         cursor = mysql.connection.cursor()
         monto = 230
@@ -126,7 +124,6 @@ def generar_dato_venta():
     except Exception as ex:
         print(ex)
     return "intento"
-
 
 @app.route('/ofertas/<id>', methods=['get'])
 def devolver_ofertajson(id):
@@ -201,8 +198,8 @@ def devolver_equipo(id):
             accesorio = {'id_accesorio': datos_accesorio[0][0], 'nombre': datos_accesorio[0][1],
                          'precio': datos_accesorio[0][2], 'stock': datos_accesorio[0][3], 'descripcion': datos_accesorio[0][4]}
 
-        equipo = {'id_equipo': datos_equipo[0][0], 'nombre': datos_equipo[0][1], 'memoria_ram': datos_equipo[0][2], 'memoria_interna': datos_equipo[0][3], 'pantalla': datos_equipo[0][4], 'camara_principal': datos_equipo[0][5], 'procesador': datos_equipo[0]
-                  [6], 'bateria': datos_equipo[0][7], 'color': datos_equipo[0][8], 'garantia': datos_equipo[0][9], 'precio': datos_equipo[0][10], 'stock': datos_equipo[0][11], 'descripcion': datos_equipo[0][12], 'plan': plan, 'accesorio': accesorio, 'link': datos_equipo[0][15]}
+        equipo = {'id_equipo': datos_equipo[0][0], 'nombre': datos_equipo[0][1], 'memoria_ram': datos_equipo[0][2], 'memoria_interna': datos_equipo[0][3], 'pantalla': datos_equipo[0][4], 'camara_principal': datos_equipo[0][5], 'procesador': datos_equipo[0][6],
+                  'bateria': datos_equipo[0][7], 'color': datos_equipo[0][8], 'garantia': datos_equipo[0][9], 'precio': datos_equipo[0][10], 'stock': datos_equipo[0][11], 'descripcion': datos_equipo[0][12], 'plan': plan, 'accesorio': accesorio, 'link': datos_equipo[0][15]}
     except Exception as ex:
         print(ex)
     return equipo
