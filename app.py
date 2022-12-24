@@ -24,9 +24,11 @@ mysql = MySQL(app)
 def index():
     return redirect(url_for('llenar_catalogo', id=1))
 
+
 @app.route('/catalogo')
 def index2():
     return redirect(url_for('llenar_catalogo', id=1))
+
 
 @app.route('/catalogo/<id>')
 def llenar_catalogo(id):
@@ -43,14 +45,6 @@ def llenar_catalogo(id):
         sql = "SELECT DISTINCT procesador FROM equipo order by procesador"
         cursor.execute(sql)
         procesadores = cursor.fetchall()
-
-#       sql = "SELECT DISTINCT camara_principal FROM equipo order by camara_principal"
-#       cursor.execute(sql)
-#       camaras = cursor.fetchall()
-#        sql = "SELECT DISTINCT memoria_ram FROM equipo order by memoria_ram"
-#        cursor.execute(sql)
-#        rams = cursor.fetchall()
-
         sql = "SELECT id_plan, nombre FROM plan order by nombre"
         cursor.execute(sql)
         planes = cursor.fetchall()
@@ -59,11 +53,18 @@ def llenar_catalogo(id):
     return render_template('modulo_ventas.html', data_productos=productos, data_procesador=procesadores, data_plan=planes)
 
 
-@app.route('/productos', methods=['get'])
+@app.route('/productos', methods=['POST'])
 def productosjson():
+
     try:
+        limite = request.form['pagina']
+        offset = 10*(int(limite)-1)
+        if (offset == 0):
+            sql = "SELECT * FROM producto LIMIT 10"
+        else:
+            sql = "SELECT * FROM producto LIMIT 10 OFFSET "+str(offset)+";"
         cursor = mysql.connection.cursor()
-        sql = "SELECT * FROM producto"
+
         cursor.execute(sql)
         datos = cursor.fetchall()
         productos = []
@@ -76,7 +77,6 @@ def productosjson():
     return jsonify(productos)
 
 
-<<<<<<< HEAD
 @app.route('/consultaclientes/<id_producto>')
 def devolver_clienteproductojson(id_producto):
     try:
@@ -92,8 +92,9 @@ def devolver_clienteproductojson(id_producto):
         print(ex)
     return jsonify(clientesxprod)
 
+
 @app.route('/consultaprod/<id_cliente>/<fecha_inicio>/<fecha_fin>')
-def devolver_prodxclientejson(id_cliente,fecha_inicio,fecha_fin):
+def devolver_prodxclientejson(id_cliente, fecha_inicio, fecha_fin):
     try:
         cursor = mysql.connection.cursor()
         sql = f"SELECT id_venta, cantidad, total, id_vendedor, fecha FROM venta, detalle_venta where id_cliente='{id_cliente}' and id_venta = fk_detventa_venta and fecha >= '{fecha_inicio}' and fecha <= '{fecha_fin}'"
@@ -102,14 +103,13 @@ def devolver_prodxclientejson(id_cliente,fecha_inicio,fecha_fin):
         prodsxcliente = []
         for fila in datos:
             prodxcliente = {'id_venta': fila[0], 'cantidad': fila[1],
-            'monto': fila[2], 'id_vendedor': fila[3], 'fecha': fila[4]}
+                            'monto': fila[2], 'id_vendedor': fila[3], 'fecha': fila[4]}
             prodsxcliente.append(prodxcliente)
     except Exception as ex:
         print(ex)
     return jsonify(prodsxcliente)
 
-=======
->>>>>>> 8d8d041179e66f79769b5a343d15acc1d018a692
+
 @app.route('/producto/<id>')
 def devolver_productojson(id):
     try:
@@ -125,10 +125,6 @@ def devolver_productojson(id):
     except Exception as ex:
         print(ex)
     return jsonify(producto)
-
-
-
-
 
 
 @app.route('/equipo/<id>', methods=['get'])
