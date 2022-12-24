@@ -21,23 +21,56 @@ document.addEventListener("click", e => {
         consultaProductos(valor);
     }
     if (e.target.getAttribute("name") == "cotizar") {
-        obtenerDatosCarrito();
+        tipo = "cotizacion";
+        llenarDocumento(obtenerDatosCarrito(), tipo);
+        openForm("documento");
+    }
+    if (e.target.getAttribute("name") == "vender") {
+        tipo = "venta";
+        llenarDocumento(obtenerDatosCarrito(), tipo)
+        openForm("documento");
     }
 })
 
 //Clase que almacenara cada la informacion para la tabla detalle venta
 class detalleVenta {
-    constructor(idproducto, cantidad, total) {
+    constructor(idproducto, cantidad, total, descripcion) {
         this.idproducto = idproducto;
         this.cantidad = cantidad;
         this.total = total;
+        this.descripcion = descripcion;
     }
 }
+// let cliente = obtenerDatosCliente();
 //arreglo de objetos con el conjunto de detalles que conforman la venta
 var detallesVenta = [];
 //carga la primera pagina de productos
 consultaProductos(1);
-
+function llenarDocumento(datos, tipo) {
+    titulo = tipo == "cotizacion" ? "DOCUMENTO DE COTIZACION" : "BOLETA ELECTRONICA";
+    tabla = document.getElementById("tablapdf");
+    tabla.innerHTML = "";
+    for (i = 0; i < datos.length; i++) {
+        id = datos[i].idproducto;
+        descripcion = datos[i].descripcion;
+        cantidad = datos[i].cantidad;
+        total = datos[i].total;
+        tr = '<tr><th>' + descripcion + '</th><th>' + cantidad + '</th><th></th><th></th><th>' + total + '</th></tr>';
+        tabla.innerHTML += tr;
+    }
+}
+function infoProducto(id) {
+    url = '/producto/' + id;
+    xhr = new XMLHttpRequest();
+    xhr.open('GET', url);
+    xhr.responseType = 'json';
+    xhr.send();
+    xhr.onload = function () {
+        respuesta = xhr.response;
+        console.log(respuesta);
+        return respuesta;
+    }
+}
 function obtenerDatosCarrito() {
     var carrito = document.getElementById("carrito");
     //reiniciamos el arreglo cada que se llame de nuevo la funcion por si añadieron o eliminaron productos del carrito
@@ -46,11 +79,11 @@ function obtenerDatosCarrito() {
         id = carrito.children[i].children[0].children[0].textContent;
         cantidad = carrito.children[i].children[0].children[2].children[1].textContent;
         total = carrito.children[i].children[0].children[4].children[0].textContent;
-        var detalle = new detalleVenta(id, cantidad, total);
+        descripcion = carrito.children[i].children[0].children[1].children[0].textContent;
+        var detalle = new detalleVenta(id, cantidad, total, descripcion);
         detallesVenta.push(detalle);
     }
     return detallesVenta;
-
 }
 function llenarCatalogo(respuesta) {
     tabla = document.getElementById("tabla");
@@ -61,32 +94,6 @@ function llenarCatalogo(respuesta) {
         tabla.innerHTML += filaproducto;
     }
 }
-
-
-
-document.addEventListener("click", e => {
-    if (e.target.getAttribute("name") == "detalles") {
-        var tr = e.target.parentElement.parentElement;
-        var th = tr.parentElement;
-        consultaDetalles(th.getAttribute('id'));
-    }
-    if (e.target.getAttribute("name") == "agregar") {
-        var tr = e.target.parentElement.parentElement;
-        var th = tr.parentElement;
-        agregarCarrito(th.getAttribute('id'));
-    }
-    if (e.target.getAttribute("name") == "pagina") {
-        var valor = e.target.textContent;
-        let botones = document.getElementsByName("pagina");
-        Array.prototype.forEach.call(botones, function (boton) {
-            boton.style.backgroundColor = "#f1f1f1";
-            boton.style.color = "#4C1A91";
-        });
-        e.target.style.backgroundColor = "#4C1A91";
-        e.target.style.color = "#f1f1f1 ";
-        consultaProductos(valor);
-    }
-})
 function agregarCarrito(id) {
     url = '/producto/' + id;
     xhr = new XMLHttpRequest();
@@ -165,7 +172,6 @@ function consultaDetalles(id) {
     xhr.send();
     xhr.onload = function () {
         respuesta = xhr.response;
-        console.log(typeof (respuesta));
         llenarDetalles(respuesta);
     }
 }
@@ -214,9 +220,9 @@ function openForm(id) {
 function closeForm(id) {
     document.getElementById(id).style.display = "none";
 }
-function filtrarprecio() {
-    // let maximo = document.getElementById(maximo).value;
-    // let minimo = document.getElementById(minimo).value;
-    var filas = document.getElementById('tabla');
-    console.log(filas);
-}
+// function filtrarprecio() {
+//     // let maximo = document.getElementById(maximo).value;
+//     // let minimo = document.getElementById(minimo).value;
+//     var filas = document.getElementById('tabla');
+//     console.log(filas);
+// }

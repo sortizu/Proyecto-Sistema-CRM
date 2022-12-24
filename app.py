@@ -124,7 +124,6 @@ def llenar_cotizacion(id):
 
 @app.route('/productos', methods=['POST'])
 def productosjson():
-
     try:
         limite = request.form['pagina']
         offset = 10*(int(limite)-1)
@@ -146,74 +145,74 @@ def productosjson():
     return jsonify(productos)
 
 
-@app.route('/boleta/<id>')
-def llenar_boleta(id):
-    try:
-        cursor = mysql.connection.cursor()
+# @app.route('/boleta/<id>')
+# def llenar_boleta(id):
+#     try:
+#         cursor = mysql.connection.cursor()
 
-        sql = f"""select producto.nombre, cantidad, precio, concat(descuento*100,'%'), total
-                from boleta, venta, detalle_venta, producto, oferta
-                where id_boleta = {id}
-                    and fk_boleta_venta = id_venta
-                    and id_venta = fk_detventa_venta
-                    and fk_detventa_producto = id_producto
-                    and fk_producto_oferta = id_oferta"""
+#         sql = f"""select producto.nombre, cantidad, precio, concat(descuento*100,'%'), total
+#                 from boleta, venta, detalle_venta, producto, oferta
+#                 where id_boleta = {id}
+#                     and fk_boleta_venta = id_venta
+#                     and id_venta = fk_detventa_venta
+#                     and fk_detventa_producto = id_producto
+#                     and fk_producto_oferta = id_oferta"""
 
-        cursor.execute(sql)
+#         cursor.execute(sql)
 
-        detalles_venta = cursor.fetchall()
+#         detalles_venta = cursor.fetchall()
 
-        sql = f"""select id_boleta, monto from boleta, venta where id_boleta = {id} and fk_boleta_venta = id_venta"""
+#         sql = f"""select id_boleta, monto from boleta, venta where id_boleta = {id} and fk_boleta_venta = id_venta"""
 
-        cursor.execute(sql)
+#         cursor.execute(sql)
 
-        detalle_monto = cursor.fetchone()
+#         detalle_monto = cursor.fetchone()
 
-        sql = f"""select EXTRACT(DAY FROM fecha), EXTRACT(month FROM fecha), EXTRACT(year FROM fecha)
-                from boleta where id_boleta = {id}"""
+#         sql = f"""select EXTRACT(DAY FROM fecha), EXTRACT(month FROM fecha), EXTRACT(year FROM fecha)
+#                 from boleta where id_boleta = {id}"""
 
-        cursor.execute(sql)
+#         cursor.execute(sql)
 
-        boleta_fecha = cursor.fetchone()
+#         boleta_fecha = cursor.fetchone()
 
-    except Exception as ex:
-        print(ex)
-    return render_template('boleta.html', data_detalles_venta=detalles_venta, data_detalle_monto=detalle_monto, data_boleta_fecha=boleta_fecha)
+#     except Exception as ex:
+#         print(ex)
+#     return render_template('boleta.html', data_detalles_venta=detalles_venta, data_detalle_monto=detalle_monto, data_boleta_fecha=boleta_fecha)
 
 
-@app.route('/cotizacion/<id>')
-def llenar_cotizacion(id):
-    try:
-        cursor = mysql.connection.cursor()
+# @app.route('/cotizacion/<id>')
+# def llenar_cotizacion(id):
+#     try:
+#         cursor = mysql.connection.cursor()
 
-        sql = f"""select producto.nombre, cantidad, precio, concat(descuento*100,'%'), total
-                from boleta, venta, detalle_venta, producto, oferta
-                where id_boleta = {id}
-                    and fk_boleta_venta = id_venta
-                    and id_venta = fk_detventa_venta
-                    and fk_detventa_producto = id_producto
-                    and fk_producto_oferta = id_oferta"""
+#         sql = f"""select producto.nombre, cantidad, precio, concat(descuento*100,'%'), total
+#                 from boleta, venta, detalle_venta, producto, oferta
+#                 where id_boleta = {id}
+#                     and fk_boleta_venta = id_venta
+#                     and id_venta = fk_detventa_venta
+#                     and fk_detventa_producto = id_producto
+#                     and fk_producto_oferta = id_oferta"""
 
-        cursor.execute(sql)
+#         cursor.execute(sql)
 
-        detalles_venta = cursor.fetchall()
+#         detalles_venta = cursor.fetchall()
 
-        sql = f"""select id_boleta, monto from boleta, venta where id_boleta = {id} and fk_boleta_venta = id_venta"""
+#         sql = f"""select id_boleta, monto from boleta, venta where id_boleta = {id} and fk_boleta_venta = id_venta"""
 
-        cursor.execute(sql)
+#         cursor.execute(sql)
 
-        detalle_monto = cursor.fetchone()
+#         detalle_monto = cursor.fetchone()
 
-        sql = f"""select EXTRACT(DAY FROM CURDATE()), EXTRACT(month FROM CURDATE()), EXTRACT(year FROM CURDATE())
-                from boleta where id_boleta = {id}"""
+#         sql = f"""select EXTRACT(DAY FROM CURDATE()), EXTRACT(month FROM CURDATE()), EXTRACT(year FROM CURDATE())
+#                 from boleta where id_boleta = {id}"""
 
-        cursor.execute(sql)
+#         cursor.execute(sql)
 
-        boleta_fecha = cursor.fetchone()
+#         boleta_fecha = cursor.fetchone()
 
-    except Exception as ex:
-        print(ex)
-    return render_template('cotizacion.html', data_detalles_venta=detalles_venta, data_detalle_monto=detalle_monto, data_boleta_fecha=boleta_fecha)
+#     except Exception as ex:
+#         print(ex)
+#     return render_template('cotizacion.html', data_detalles_venta=detalles_venta, data_detalle_monto=detalle_monto, data_boleta_fecha=boleta_fecha)
 
 
 @app.route('/consultaclientes/<id_producto>')
@@ -247,6 +246,9 @@ def devolver_prodxclientejson(id_cliente, fecha_inicio, fecha_fin):
     except Exception as ex:
         print(ex)
     return jsonify(prodsxcliente)
+
+# venta idventa
+# detallesdeventa
 
 
 @app.route('/producto/<id>')

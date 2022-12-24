@@ -5,63 +5,81 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <link rel="stylesheet" href="../static/css/style.css">
     <title>Ventas</title>
 </head>
+
 <body>
-   
 
-<div class = "report">
-    <table class="table">
-        <tbody>
-            <tr><td colspan="5" class="tbtitulo"><br><img class="logo" src="../static/resources/images/cubo.png" title="Inicio"><b> Empresa Teleco S.A.C.</b></td></tr>    
-            <tr><td colspan="5" class="tbsubtitulo"><br>Avenida Petit Thouars N° 5356, 4to piso - Oficina 4006 Miraflores - Lima - Lima - PERÚ</td></tr>    
-            
-            <tr><td colspan="5" class="tbsubtitulo">RUC: 20600597940</td></tr>  
-            {% block content %}
-            {% endblock %}  
-            
-            
-            <tr><td colspan="5" class="tbcliente"><b>Cliente: </b>BIANCA ELIZABETH ROMERO DIAZ</td></tr>
-            <tr><td colspan="5" class="tbcliente"><b>Dirección: </b>Julio Villegas, 184 - La Victoria - Lima - Lima</td></tr>
-            <tr><td colspan="5" class="tbcliente"><b>DNI: </b>74760568</td></tr>
-            <tr><td colspan="5" class="tbcliente"><b>Moneda: </b>SOL</td></tr>
 
-            <tr>
-                <td colspan="5" class="tbcliente"  value={{data_boleta_fecha}}>
-                    {% block content_fecha %}
-                    {% endblock %}
-                </td>
-            </tr>
-            <tr><td colspan="5" class="tbcliente"><b>Cod. Cliente: </b>13499494</td></tr>
-            
-            <tr><td colspan="5" class="tbbarra">________________________________________________________________________________________________________________________</td></tr>
+    <div class="report">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td colspan="5" class="tbtitulo"><br><img class="logo" src="../static/resources/images/cubo.png"
+                            title="Inicio"><b> Empresa Teleco S.A.C.</b></td>
+                </tr>
+                <tr>
+                    <td colspan="5" class="tbsubtitulo"><br>Avenida Petit Thouars N° 5356, 4to piso - Oficina 4006
+                        Miraflores - Lima - Lima - PERÚ</td>
+                </tr>
 
-            <tr>
-                <th class="tbdetcabecera"><b>Descripción</b></td>
-                <th class="tbdetcabecera">Cant.</th>
-                <th class="tbdetcabecera">Precio unitario</th>
-                <th class="tbdetcabecera">Dscto(%)</th>
-                <th class="tbdetcabecera">Precio total</th>
-            </tr>
-            {%for detalle in data_detalles_venta %}
-            <tr>
-                <td lass="tbdetcabecera" value={{detalle.0}}>{{detalle.0}}</td>
-                <td class="tbdetcabecera" value={{detalle.1}}>{{detalle.1}}</td>
-                <td class="tbdetcabecera" value={{detalle.2}}>S/{{detalle.2}}</td>
-                <td class="tbdetcabecera" value={{detalle.3}}>{{detalle.3}}</td>
-                <td class="tbdetcabecera" value={{detalle.4}}>S/{{detalle.4}}</td>
-            </tr>
-            {% endfor %}
-            <tr><td colspan="5" class="tbbarra">________________________________________________________________________________________________________________________</td></tr>
+                <tr>
+                    <td colspan="5" class="tbsubtitulo">RUC: 20600597940</td>
+                </tr>
 
-            <tr><td colspan="5" class="tbtotal" value={{data_detalle_monto.1}}>Importe Total: S/{{data_detalle_monto.1}}</td></tr>
-            
-        </tbody>
-        
-    </table>
-    
-</div>
+
+                <tr>
+                    <td colspan="5" class="tbcliente"><b>Cliente: </b>BIANCA ELIZABETH ROMERO DIAZ</td>
+                </tr>
+                <tr>
+                    <td colspan="5" class="tbcliente"><b>Dirección: </b>Julio Villegas, 184 - La Victoria - Lima - Lima
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5" class="tbcliente"><b>DNI: </b>74760568</td>
+                </tr>
+                <tr>
+                    <td colspan="5" class="tbcliente"><b>Moneda: </b>SOL</td>
+                </tr>
+
+                <tr>
+                    <td colspan="5" class="tbcliente">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5" class="tbcliente"><b>Cod. Cliente: </b>13499494</td>
+                </tr>
+
+                <tr>
+                    <td colspan="5" class="tbbarra">
+                        ________________________________________________________________________________________________________________________
+                    </td>
+                </tr>
+
+                <tr>
+                    <th class="tbdetcabecera"><b>Descripción</b></th>
+                    <th class="tbdetcabecera">Cant.</th>
+                    <th class="tbdetcabecera">Precio unitario</th>
+                    <th class="tbdetcabecera">Dscto(%)</th>
+                    <th class="tbdetcabecera">Precio total</th>
+                </tr>
+                <tr>
+                    <td colspan="5" class="tbbarra">
+                        ________________________________________________________________________________________________________________________
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="5" class="tbtotal">Importe Total:</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
 </body>
+
 </html>
