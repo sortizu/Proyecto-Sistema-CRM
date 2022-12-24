@@ -1,0 +1,9 @@
+{% extends 'base_reporte.html'%}
+{% block content %}
+    <tr><td colspan="5" class="tbsubtitulo">Boleta de venta electrónica</td></tr>
+    <tr><td colspan="5" class="tbcliente" value={{data_detalle_monto.0}}>B{{data_detalle_monto.0}}</td></tr>
+{% endblock %} 
+{% block content_fecha %}
+    <b>Fecha de Emisión: </b>
+    {{data_boleta_fecha.0}}-{{data_boleta_fecha.1}}-{{data_boleta_fecha.2}}
+{% endblock %} 

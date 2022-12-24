@@ -20,6 +20,11 @@ app.config['MYSQL_DB'] = 'crm_ventas'
 mysql = MySQL(app)
 
 
+# @app.route('/')
+# def index():
+#     return redirect(url_for('llenar_catalogo'))
+
+
 @app.route('/')
 def index():
     return redirect(url_for('llenar_catalogo', id=1))
@@ -35,22 +40,86 @@ def llenar_catalogo(id):
     try:
         cursor = mysql.connection.cursor()
 
-        i = int(id)
-        pos = 10*(i-1)+1
-
-        sql = f"SELECT nombre,id_producto, stock, precio FROM producto where id_producto >= '{pos}' order by id_producto limit 10"
-        cursor.execute(sql)
-        productos = cursor.fetchall()
-
         sql = "SELECT DISTINCT procesador FROM equipo order by procesador"
         cursor.execute(sql)
         procesadores = cursor.fetchall()
+
         sql = "SELECT id_plan, nombre FROM plan order by nombre"
         cursor.execute(sql)
         planes = cursor.fetchall()
     except Exception as ex:
         print(ex)
-    return render_template('modulo_ventas.html', data_productos=productos, data_procesador=procesadores, data_plan=planes)
+    return render_template('modulo_ventas.html', data_procesador=procesadores, data_plan=planes)
+
+
+@app.route('/boleta/<id>')
+def llenar_boleta(id):
+    try:
+        cursor = mysql.connection.cursor()
+
+        sql = f"""select producto.nombre, cantidad, precio, concat(descuento*100,'%'), total
+                from boleta, venta, detalle_venta, producto, oferta
+                where id_boleta = {id}
+                    and fk_boleta_venta = id_venta
+                    and id_venta = fk_detventa_venta
+                    and fk_detventa_producto = id_producto
+                    and fk_producto_oferta = id_oferta"""
+
+        cursor.execute(sql)
+
+        detalles_venta = cursor.fetchall()
+
+        sql = f"""select id_boleta, monto from boleta, venta where id_boleta = {id} and fk_boleta_venta = id_venta"""
+
+        cursor.execute(sql)
+
+        detalle_monto = cursor.fetchone()
+
+        sql = f"""select EXTRACT(DAY FROM fecha), EXTRACT(month FROM fecha), EXTRACT(year FROM fecha)
+                from boleta where id_boleta = {id}"""
+
+        cursor.execute(sql)
+
+        boleta_fecha = cursor.fetchone()
+
+    except Exception as ex:
+        print(ex)
+    return render_template('boleta.html', data_detalles_venta=detalles_venta, data_detalle_monto=detalle_monto, data_boleta_fecha=boleta_fecha)
+
+
+@app.route('/cotizacion/<id>')
+def llenar_cotizacion(id):
+    try:
+        cursor = mysql.connection.cursor()
+
+        sql = f"""select producto.nombre, cantidad, precio, concat(descuento*100,'%'), total
+                from boleta, venta, detalle_venta, producto, oferta
+                where id_boleta = {id}
+                    and fk_boleta_venta = id_venta
+                    and id_venta = fk_detventa_venta
+                    and fk_detventa_producto = id_producto
+                    and fk_producto_oferta = id_oferta"""
+
+        cursor.execute(sql)
+
+        detalles_venta = cursor.fetchall()
+
+        sql = f"""select id_boleta, monto from boleta, venta where id_boleta = {id} and fk_boleta_venta = id_venta"""
+
+        cursor.execute(sql)
+
+        detalle_monto = cursor.fetchone()
+
+        sql = f"""select EXTRACT(DAY FROM CURDATE()), EXTRACT(month FROM CURDATE()), EXTRACT(year FROM CURDATE())
+                from boleta where id_boleta = {id}"""
+
+        cursor.execute(sql)
+
+        boleta_fecha = cursor.fetchone()
+
+    except Exception as ex:
+        print(ex)
+    return render_template('cotizacion.html', data_detalles_venta=detalles_venta, data_detalle_monto=detalle_monto, data_boleta_fecha=boleta_fecha)
 
 
 @app.route('/productos', methods=['POST'])
@@ -77,6 +146,76 @@ def productosjson():
     return jsonify(productos)
 
 
+@app.route('/boleta/<id>')
+def llenar_boleta(id):
+    try:
+        cursor = mysql.connection.cursor()
+
+        sql = f"""select producto.nombre, cantidad, precio, concat(descuento*100,'%'), total
+                from boleta, venta, detalle_venta, producto, oferta
+                where id_boleta = {id}
+                    and fk_boleta_venta = id_venta
+                    and id_venta = fk_detventa_venta
+                    and fk_detventa_producto = id_producto
+                    and fk_producto_oferta = id_oferta"""
+
+        cursor.execute(sql)
+
+        detalles_venta = cursor.fetchall()
+
+        sql = f"""select id_boleta, monto from boleta, venta where id_boleta = {id} and fk_boleta_venta = id_venta"""
+
+        cursor.execute(sql)
+
+        detalle_monto = cursor.fetchone()
+
+        sql = f"""select EXTRACT(DAY FROM fecha), EXTRACT(month FROM fecha), EXTRACT(year FROM fecha)
+                from boleta where id_boleta = {id}"""
+
+        cursor.execute(sql)
+
+        boleta_fecha = cursor.fetchone()
+
+    except Exception as ex:
+        print(ex)
+    return render_template('boleta.html', data_detalles_venta=detalles_venta, data_detalle_monto=detalle_monto, data_boleta_fecha=boleta_fecha)
+
+
+@app.route('/cotizacion/<id>')
+def llenar_cotizacion(id):
+    try:
+        cursor = mysql.connection.cursor()
+
+        sql = f"""select producto.nombre, cantidad, precio, concat(descuento*100,'%'), total
+                from boleta, venta, detalle_venta, producto, oferta
+                where id_boleta = {id}
+                    and fk_boleta_venta = id_venta
+                    and id_venta = fk_detventa_venta
+                    and fk_detventa_producto = id_producto
+                    and fk_producto_oferta = id_oferta"""
+
+        cursor.execute(sql)
+
+        detalles_venta = cursor.fetchall()
+
+        sql = f"""select id_boleta, monto from boleta, venta where id_boleta = {id} and fk_boleta_venta = id_venta"""
+
+        cursor.execute(sql)
+
+        detalle_monto = cursor.fetchone()
+
+        sql = f"""select EXTRACT(DAY FROM CURDATE()), EXTRACT(month FROM CURDATE()), EXTRACT(year FROM CURDATE())
+                from boleta where id_boleta = {id}"""
+
+        cursor.execute(sql)
+
+        boleta_fecha = cursor.fetchone()
+
+    except Exception as ex:
+        print(ex)
+    return render_template('cotizacion.html', data_detalles_venta=detalles_venta, data_detalle_monto=detalle_monto, data_boleta_fecha=boleta_fecha)
+
+
 @app.route('/consultaclientes/<id_producto>')
 def devolver_clienteproductojson(id_producto):
     try:
@@ -97,7 +236,7 @@ def devolver_clienteproductojson(id_producto):
 def devolver_prodxclientejson(id_cliente, fecha_inicio, fecha_fin):
     try:
         cursor = mysql.connection.cursor()
-        sql = f"SELECT id_venta, cantidad, total, id_vendedor, fecha FROM venta, detalle_venta where id_cliente='{id_cliente}' and id_venta = fk_detventa_venta and fecha >= '{fecha_inicio}' and fecha <= '{fecha_fin}'"
+        sql = f"SELECT id_venta, cantidad, total, id_vendedor, fecha FROM venta, detalle_venta where id_cliente={id_cliente} and id_venta = fk_detventa_venta and fecha >= '{fecha_inicio}' and fecha <= '{fecha_fin}'"
         cursor.execute(sql)
         datos = cursor.fetchall()
         prodsxcliente = []
@@ -272,120 +411,3 @@ def devolver_oferta(id):
 if __name__ == '__main__':
     # app.config.from_object(config['development'])
     app.run(debug=True)
-# Funciones
-# @app.route('/')
-# def index():
-#     return redirect(url_for('catalogo_default', i=1))
-
-
-# @app.route('/catalogo')
-# def index2():
-#     return redirect(url_for('catalogo_default', i=1))
-
-
-# @app.route('/catalogo/<i>')
-# def catalogo_default(i):
-
-#     cur = mysql.connection.cursor()
-
-#     i = int(i)
-#     pos = 8*(i-1)+1
-#     cur.execute(
-#         f"select p.*,e.link from crm_ventas.producto p, crm_ventas.equipo e where fk_producto_equipo = id_equipo and id_producto >= '{pos}' order by id_producto limit 8;")
-#     data_productos = cur.fetchall()
-
-#     cur.execute('select nombre from oferta')
-#     data_ofertas = cur.fetchall()
-
-#     cur.execute('select nombre from plan')
-#     data_planes = cur.fetchall()
-
-#     cur.execute('select nombre from accesorio')
-#     data_accesorios = cur.fetchall()
-
-#     return render_template('modulo_ventas.html', productos=data_productos, ofertas=data_ofertas, planes=data_planes, accesorios=data_accesorios)
-
-
-# @app.route('/catalogo/producto', methods=['GET', 'POST'])
-# def catalogo_idproducto():
-
-#     #    if request.method == "POST":
-#     #        i=request.form['id']
-#     if request.method == "GET":
-#         i = request.args['id']
-
-#     cur = mysql.connection.cursor()
-
-#     cur.execute(
-#         f"select p.*,e.link from crm_ventas.producto p, crm_ventas.equipo e where fk_producto_equipo = id_equipo and id_producto = '{i}';")
-#     data_productos = cur.fetchall()
-
-#     cur.execute('select nombre from oferta')
-#     data_ofertas = cur.fetchall()
-
-#     cur.execute('select nombre from plan')
-#     data_planes = cur.fetchall()
-
-#     cur.execute('select nombre from accesorio')
-#     data_accesorios = cur.fetchall()
-
-#     return render_template('modulo_ventas.html', productos=data_productos, ofertas=data_ofertas,
-#                            planes=data_planes, accesorios=data_accesorios)
-
-
-# @app.route('/catalogo', methods=['GET', 'POST'])
-# def catalogo_ordenado():
-
-#     if request.method == "POST":
-#         opcion_ordenar = request.form['opcion_ordenar']
-#         print(opcion_ordenar)
-
-#         cur = mysql.connection.cursor()
-
-#         cur.execute(
-#             f"select p.*,e.link from crm_ventas.producto p, crm_ventas.equipo e where fk_producto_equipo = id_equipo order by '{opcion_ordenar}' asc;")
-#         data_productos = cur.fetchall()
-
-#         cur.execute('select nombre from oferta')
-#         data_ofertas = cur.fetchall()
-
-#         cur.execute('select nombre from plan')
-#         data_planes = cur.fetchall()
-
-#         cur.execute('select nombre from accesorio')
-#         data_accesorios = cur.fetchall()
-
-#     return render_template('modulo_ventas.html', productos=data_productos, ofertas=data_ofertas,
-#                            planes=data_planes, accesorios=data_accesorios)
-
-
-# @app.route('/detalles/<i>')  # creo que está mal, que debe ser una url previa
-# def ver_detalles(i):
-#     cur = mysql.connection.cursor()
-
-#     cur.execute(
-#         f"select pr.precio, pr.stock from producto pr where pr.id_producto = {i};")
-#     data_producto = cur.fetchone()
-
-#     cur.execute(
-#         f"select e.nombre, e.descripcion, e.garantia, e.link from producto pr, equipo e where pr.id_producto = '{i}' and pr.fk_producto_equipo = e.id_equipo;")
-#     data_equipo = cur.fetchone()
-
-#     cur.execute(
-#         f"select p.nombre, p.precio, p.descripcion from producto pr, equipo e, plan p where pr.id_producto = '{i}' and pr.fk_producto_equipo = e.id_equipo and e.fk_equipo_plan = p.id_plan;")
-#     data_plan = cur.fetchone()
-
-#     cur.execute(
-#         f"select a.nombre, a.descripcion from producto pr, equipo e, accesorio a where pr.id_producto = '{i}' and pr.fk_producto_equipo = e.id_equipo and e.fk_equipo_accesorio = a.id_accesorio;")
-#     data_accesorio = cur.fetchone()
-
-#     cur.execute(
-#         f"select o.nombre, concat(o.descuento*100,'%'), o.descripcion from oferta o, producto p where p.id_producto = {i} and p.fk_producto_oferta = o.id_oferta;")
-#     data_oferta = cur.fetchone()
-
-#     return render_template('modulo_ventas.html', producto=data_producto, equipo=data_equipo, plan=data_plan, accesorio=data_accesorio, oferta=data_oferta)
-
-
-# @app.route('/carrito')
-# def carrito():
-#     return render_template('modulo_ventas.html')

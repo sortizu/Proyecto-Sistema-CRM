@@ -154,10 +154,10 @@ header button{
 
 .carritotabla{
     table-layout: fixed;
-  width: 100%;
-  border-collapse: collapse;
-  border-top: 2px solid #D1D1D1;
-  margin-top: 5%;
+    width: 100%;
+    border-collapse: collapse;
+    border-top: 2px solid #D1D1D1;
+    margin-top: 5%;
 }
 
 th{
@@ -489,4 +489,37 @@ tr{
     border: #4C1A91 2px ridge;
     border-radius: 50%;
     margin: 5px;
+}
+
+
+/*REPORTE*/
+
+.report{
+    display: grid;
+    place-content: center;
+    font-family: arial;
+    line-height: 1.5;
+}
+
+.tbtitulo{
+    text-align: center;
+    font-size: 23px;
+    font-family: arial;
+}
+.tbsubtitulo{
+    text-align: left;
+    font-size: 20px;
+}
+.tbcliente{
+    text-align: left;
+    font-size: 15px;
+}
+.tbbarra{
+    text-align: center;
+}
+.tbdetcabecera{
+    text-align: center;
+}
+.tbtotal{
+    text-align: right;
 }
